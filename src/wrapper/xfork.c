@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 19:20:08 by reasuke           #+#    #+#             */
-/*   Updated: 2024/02/25 19:21:05 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/02/25 19:45:52 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ int	xfork(void)
 
 	pid = fork();
 	if (pid == FAIL)
-		exit_with_message(strerror(errno));
+		exit_with_message(__func__, strerror(errno));
 	return (pid);
 }

@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 19:03:24 by reasuke           #+#    #+#             */
-/*   Updated: 2024/02/25 19:07:17 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/02/25 19:46:28 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,6 @@
 # include "libft.h"
 # include <unistd.h>
 
-void	exit_with_message(const char *msg);
+void	exit_with_message(const char *func, const char *msg);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 19:14:37 by reasuke           #+#    #+#             */
-/*   Updated: 2024/02/25 19:23:55 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/02/25 19:46:10 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@ int	xpipe(int fds[2])
 
 	ret = pipe(fds);
 	if (ret == FAIL)
-		exit_with_message(strerror(errno));
+		exit_with_message(__func__, strerror(errno));
 	return (ret);
 }
