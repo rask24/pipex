@@ -7,7 +7,7 @@ CFLAGS		= -Wall -Wextra -Werror
 PROD_FLAGS	= -O3
 DEV_FLAGS	= -O0 -g -fsanitize=address,undefined,integer
 DEP_FLAGS	= -MMD -MP
-INCLUDE		= -I $(INC_DIR)
+INCLUDE		= -I $(INC_DIR) -I $(LIBFT_DIR)/$(INC_DIR)
 
 # directories
 SRC_DIR		= src
@@ -16,7 +16,11 @@ INC_DIR		= include
 LIBFT_DIR	= libft
 
 # files
-SRC			= $(SRC_DIR)/main.c
+SRC			= $(SRC_DIR)/main.c \
+				$(SRC_DIR)/wrapper/xpipe.c \
+				$(SRC_DIR)/wrapper/xdup2.c \
+				$(SRC_DIR)/wrapper/xfork.c \
+				$(SRC_DIR)/utils/exit_with_message.c
 OBJ			= $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRC))
 DEP			= $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.d, $(SRC))
 

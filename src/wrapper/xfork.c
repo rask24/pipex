@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   xfork.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/21 14:36:23 by reasuke           #+#    #+#             */
-/*   Updated: 2024/02/25 19:10:12 by reasuke          ###   ########.fr       */
+/*   Created: 2024/02/25 19:20:08 by reasuke           #+#    #+#             */
+/*   Updated: 2024/02/25 19:21:05 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "wrapper.h"
 
-# include "libft.h"
-# include <fcntl.h>
-# include <stdlib.h>
-# include <unistd.h>
+int	xfork(void)
+{
+	pid_t	pid;
 
-#endif
+	pid = fork();
+	if (pid == FAIL)
+		exit_with_message(strerror(errno));
+	return (pid);
+}
