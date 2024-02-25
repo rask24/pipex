@@ -19,6 +19,7 @@ LIBFT_DIR	= libft
 SRC			= $(SRC_DIR)/main.c \
 				$(SRC_DIR)/process/open_infile.c \
 				$(SRC_DIR)/process/open_outfile.c \
+				$(SRC_DIR)/process/execute_child_process.c \
 				$(SRC_DIR)/wrapper/xpipe.c \
 				$(SRC_DIR)/wrapper/xdup2.c \
 				$(SRC_DIR)/wrapper/xfork.c \

@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 14:36:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/02/25 20:11:30 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/02/25 22:34:38 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ int	main(int argc, char **argv, char **envp)
 	if (pid == CHILD)
 	{
 		ft_printf("This is child process.\n");
-		ft_printf("%d\n", open_infile("sldkjflsdjf"));
-		// execute_child_process();
+		execute_child_process(argv[1], argv[2], fds, envp);
 	}
 	else
 	{

@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process.h                                          :+:      :+:    :+:   */
+/*   execute_child_process.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/25 20:03:54 by reasuke           #+#    #+#             */
-/*   Updated: 2024/02/25 22:33:51 by reasuke          ###   ########.fr       */
+/*   Created: 2024/02/25 20:14:25 by reasuke           #+#    #+#             */
+/*   Updated: 2024/02/25 22:37:15 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PROCESS_H
-# define PROCESS_H
+#include "process.h"
+#include "wrapper.h"
+#include "libft.h"
 
-# include <errno.h>
-# include <fcntl.h>
-# include <string.h>
-# include <unistd.h>
-
-# define FAIL -1
-
-int		open_infile(const char *file_path);
-int		open_outfile(const char *file_path);
 void	execute_child_process(const char *infile_path, const char *cmd,
-			int fds[2], char **envp);
+			int fds[2], char **envp)
+{
+	int	in_fd;
 
-#endif
+	in_fd = open_infile(infile_path);
+	xdup2(in_fd, STDIN_FILENO);
+	// xdup2(fds[1], STDOUT_FILENO);
+	close(fds[0]);
+	execve("/bin/cat", ft_split(cmd, ' '), envp);
+}
