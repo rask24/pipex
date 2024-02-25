@@ -11,7 +11,7 @@ GTEST_DIR		= test/unit/gtest
 TEST_BUILD_DIR	= test/build
 
 # mandatory source files
-OBJ_EXCLUDE_MAIN= $(filter-out $(BUILD_DIR)/main.o, $(OBJ))
+OBJ_FILTER_MAIN	= $(filter-out $(BUILD_DIR)/main.o, $(OBJ))
 
 # test files
 # TEST_SRC		= $(TEST_DIR)/
@@ -29,7 +29,7 @@ GTEST_FUSE		= fuse_gtest_files.py
 # rules for test
 .PHONY: test
 test: all $(GTEST_OBJ) $(TEST_OBJ)
-	@$(CXX) -L $(LIBFT_DIR) -lft -lpthread $(OBJ_EXCLUDE_MAIN) $(TEST_OBJ) $(GTEST_OBJ) -o $(TEST_NAME)
+	@$(CXX) -L $(LIBFT_DIR) -lft -lpthread $(OBJ_FILTER_MAIN) $(TEST_OBJ) $(GTEST_OBJ) -o $(TEST_NAME)
 	@echo "\n$(BLUE)[gtest]\t\t./$(TEST_NAME)$(RESET)\t$(GREEN)compiled ✔$(RESET)"
 	./$(TEST_NAME)
 

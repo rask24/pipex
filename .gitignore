@@ -63,10 +63,3 @@ build/
 
 # google test
 gtest/
-
-# test files
-infile
-outfile
-
-# pdf files
-en.subject.pdf
