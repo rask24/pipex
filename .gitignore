@@ -63,3 +63,7 @@ build/
 
 # google test
 gtest/
+
+# test files
+infile
+outfile

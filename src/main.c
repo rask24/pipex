@@ -6,29 +6,40 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 14:36:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/02/25 19:01:48 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/02/25 20:00:40 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
+#include "utils.h"
+#include "wrapper.h"
 
-int	main(int argc, char **argv, char **env)
+static void	_check_argument(int argc)
 {
-	char	*cmd[3];
+	if (argc != 5)
+		exit_with_message(__func__, "The number of arguments must be 4");
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	int		fds[2];
 	pid_t	pid;
 
-	pid = fork();
-	if (pid == 0)
-	{
-		ft_printf("I am Child Process: %d\n", pid);
-		cmd[0] = ft_strdup("ls");
-		cmd[1] = ft_strdup("-l");
-		cmd[2] = NULL;
-		execve("/bin/ls", cmd, env);
-		exit(0);
-	}
-	ft_printf("I am Parent Process: %d\n", pid);
 	(void)argc;
 	(void)argv;
+	(void)envp;
+	_check_argument(argc);
+	xpipe(fds);
+	pid = xfork();
+	if (pid == CHILD)
+	{
+		ft_printf("This is child process.\n");
+		// execute_child_process();
+	}
+	else
+	{
+		ft_printf("This is parent process.\n");
+		// execute_parent_process();
+	}
 	return (0);
 }
