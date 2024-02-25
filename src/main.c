@@ -6,16 +6,18 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 14:36:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/02/25 20:00:40 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/02/25 20:11:30 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 #include "utils.h"
 #include "wrapper.h"
+#include "process.h"
 
 static void	_check_argument(int argc)
 {
+	return ;
 	if (argc != 5)
 		exit_with_message(__func__, "The number of arguments must be 4");
 }
@@ -34,6 +36,7 @@ int	main(int argc, char **argv, char **envp)
 	if (pid == CHILD)
 	{
 		ft_printf("This is child process.\n");
+		ft_printf("%d\n", open_infile("sldkjflsdjf"));
 		// execute_child_process();
 	}
 	else

@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   process.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/21 14:36:23 by reasuke           #+#    #+#             */
-/*   Updated: 2024/02/25 19:56:54 by reasuke          ###   ########.fr       */
+/*   Created: 2024/02/25 20:03:54 by reasuke           #+#    #+#             */
+/*   Updated: 2024/02/25 20:06:53 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PROCESS_H
+# define PROCESS_H
 
-# include "libft.h"
+# include <errno.h>
 # include <fcntl.h>
-# include <stdlib.h>
+# include <string.h>
 # include <unistd.h>
 
-# define CHILD 0
+# define FAIL -1
+
+int	open_infile(const char *file_path);
+int	open_outfile(const char *file_path);
 
 #endif
