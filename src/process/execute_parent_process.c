@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   execute_parent_process.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/21 14:36:23 by reasuke           #+#    #+#             */
-/*   Updated: 2024/02/25 19:56:54 by reasuke          ###   ########.fr       */
+/*   Created: 2024/02/25 20:14:25 by reasuke           #+#    #+#             */
+/*   Updated: 2024/02/25 23:03:42 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "process.h"
+#include "wrapper.h"
+#include "libft.h"
 
-# include "libft.h"
-# include <fcntl.h>
-# include <stdlib.h>
-# include <unistd.h>
+void	execute_parent_process(const char *outfile_path, const char *cmd,
+			int fds[2], char **envp)
+{
+	int	out_fd;
 
-# define CHILD 0
-
-#endif
+	out_fd = open_outfile(outfile_path);
+	xdup2(fds[0], STDIN_FILENO);
+	xdup2(out_fd, STDOUT_FILENO);
+	close(fds[1]);
+	execve("/usr/bin/tail", ft_split(cmd, ' '), envp);
+}
