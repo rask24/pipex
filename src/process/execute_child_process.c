@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 20:14:25 by reasuke           #+#    #+#             */
-/*   Updated: 2024/02/25 22:37:15 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/02/25 22:40:58 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	execute_child_process(const char *infile_path, const char *cmd,
 
 	in_fd = open_infile(infile_path);
 	xdup2(in_fd, STDIN_FILENO);
-	// xdup2(fds[1], STDOUT_FILENO);
+	xdup2(fds[1], STDOUT_FILENO);
 	close(fds[0]);
 	execve("/bin/cat", ft_split(cmd, ' '), envp);
 }

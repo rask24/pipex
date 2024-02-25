@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_outfile.c                                     :+:      :+:    :+:   */
+/*   execute_parent_process.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/25 20:05:51 by reasuke           #+#    #+#             */
-/*   Updated: 2024/02/25 23:03:07 by reasuke          ###   ########.fr       */
+/*   Created: 2024/02/25 20:14:25 by reasuke           #+#    #+#             */
+/*   Updated: 2024/02/25 23:03:42 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "process.h"
-#include "utils.h"
+#include "wrapper.h"
+#include "libft.h"
 
-int	open_outfile(const char *file_path)
+void	execute_parent_process(const char *outfile_path, const char *cmd,
+			int fds[2], char **envp)
 {
-	int	fd;
+	int	out_fd;
 
-	fd = open(file_path, O_WRONLY | O_CREAT | O_TRUNC, 0664);
-	if (fd == FAIL)
-		exit_with_message(__func__, strerror(errno));
-	return (fd);
+	out_fd = open_outfile(outfile_path);
+	xdup2(fds[0], STDIN_FILENO);
+	xdup2(out_fd, STDOUT_FILENO);
+	close(fds[1]);
+	execve("/usr/bin/tail", ft_split(cmd, ' '), envp);
 }
