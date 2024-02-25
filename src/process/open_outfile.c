@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   open_outfile.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/21 14:36:23 by reasuke           #+#    #+#             */
-/*   Updated: 2024/02/25 19:56:54 by reasuke          ###   ########.fr       */
+/*   Created: 2024/02/25 20:05:51 by reasuke           #+#    #+#             */
+/*   Updated: 2024/02/25 23:03:07 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "process.h"
+#include "utils.h"
 
-# include "libft.h"
-# include <fcntl.h>
-# include <stdlib.h>
-# include <unistd.h>
+int	open_outfile(const char *file_path)
+{
+	int	fd;
 
-# define CHILD 0
-
-#endif
+	fd = open(file_path, O_WRONLY | O_CREAT | O_TRUNC, 0664);
+	if (fd == FAIL)
+		exit_with_message(__func__, strerror(errno));
+	return (fd);
+}

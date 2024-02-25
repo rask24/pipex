@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   xpipe copy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/21 14:36:23 by reasuke           #+#    #+#             */
-/*   Updated: 2024/02/25 19:56:54 by reasuke          ###   ########.fr       */
+/*   Created: 2024/02/25 19:14:37 by reasuke           #+#    #+#             */
+/*   Updated: 2024/02/25 19:47:10 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#include "wrapper.h"
 
-# include "libft.h"
-# include <fcntl.h>
-# include <stdlib.h>
-# include <unistd.h>
+int	xclose(int fd)
+{
+	int	ret;
 
-# define CHILD 0
-
-#endif
+	ret = close(fd);
+	if (ret == FAIL)
+		exit_with_message(__func__, strerror(errno));
+	return (ret);
+}
