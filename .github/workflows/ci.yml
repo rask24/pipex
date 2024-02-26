@@ -26,3 +26,23 @@ jobs:
         run: make
       - name: Unit test
         run: make test
+  rspec:
+    name: rspec test
+    runs-on: macos-14
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Build pipex
+        run: make
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3.0
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundle install
+      - name: Run tests
+        run: rspec test/spec

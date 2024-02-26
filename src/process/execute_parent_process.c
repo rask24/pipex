@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 20:14:25 by reasuke           #+#    #+#             */
-/*   Updated: 2024/02/25 23:03:42 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/02/26 14:32:37 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ void	execute_parent_process(const char *outfile_path, const char *cmd,
 	xdup2(fds[0], STDIN_FILENO);
 	xdup2(out_fd, STDOUT_FILENO);
 	close(fds[1]);
-	execve("/usr/bin/tail", ft_split(cmd, ' '), envp);
+	execute_command(cmd, envp);
 }

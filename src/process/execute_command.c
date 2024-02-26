@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_child_process.c                            :+:      :+:    :+:   */
+/*   execute_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/25 20:14:25 by reasuke           #+#    #+#             */
-/*   Updated: 2024/02/26 14:31:55 by reasuke          ###   ########.fr       */
+/*   Created: 2024/02/26 14:29:05 by reasuke           #+#    #+#             */
+/*   Updated: 2024/02/26 16:12:09 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "process.h"
-#include "wrapper.h"
 
-void	execute_child_process(const char *infile_path, const char *cmd,
-			int fds[2], char **envp)
+static void	not_found_exit(const char *cmd_name)
 {
-	int	in_fd;
+	ft_dprintf(STDERR_FILENO, "pipex: %s: command not found\n", cmd_name);
+	exit(NOT_FOUND);
+}
 
-	in_fd = open_infile(infile_path);
-	xdup2(in_fd, STDIN_FILENO);
-	xdup2(fds[1], STDOUT_FILENO);
-	close(fds[0]);
-	execute_command(cmd, envp);
+void	execute_command(const char *cmd, char **envp)
+{
+	char		**cmd_list;
+	const char	*exec_path;
+
+	cmd_list = ft_split(cmd, ' ');
+	exec_path = resolve_command_path(cmd_list[0], envp);
+	if (!exec_path)
+		not_found_exit(cmd_list[0]);
+	execve(exec_path, cmd_list, envp);
 }

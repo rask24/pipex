@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 20:03:54 by reasuke           #+#    #+#             */
-/*   Updated: 2024/02/25 22:41:58 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/02/26 16:19:18 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,18 @@
 # include <string.h>
 # include <unistd.h>
 
-# define FAIL -1
+# define SUCCESS 0
+# define FAILURE -1
 
-int		open_infile(const char *file_path);
-int		open_outfile(const char *file_path);
-void	execute_child_process(const char *infile_path, const char *cmd,
-			int fds[2], char **envp);
-void	execute_parent_process(const char *outfile_path, const char *cmd,
-			int fds[2], char **envp);
+# define NOT_FOUND 127
+
+int			open_infile(const char *file_path);
+int			open_outfile(const char *file_path);
+void		execute_child_process(const char *infile_path, const char *cmd,
+				int fds[2], char **envp);
+void		execute_parent_process(const char *outfile_path, const char *cmd,
+				int fds[2], char **envp);
+void		execute_command(const char *cmd, char **envp);
+const char	*resolve_command_path(const char *cmd_name, char **envp);
 
 #endif
