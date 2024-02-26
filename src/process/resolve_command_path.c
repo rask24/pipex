@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 15:33:16 by reasuke           #+#    #+#             */
-/*   Updated: 2024/02/26 15:40:26 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/02/26 16:27:37 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,10 @@ const char	*resolve_command_path(const char *cmd_name, char **envp)
 	int			i;
 
 	paths = ft_split(_extract_path_env(envp), ':');
+	if (!paths)
+		return (NULL);
 	i = 0;
-	while (paths[i])
+	while (paths && paths[i])
 	{
 		tmp_path = _join_path_with_cmd_name(paths[i], cmd_name);
 		if (access(tmp_path, X_OK) == SUCCESS)
