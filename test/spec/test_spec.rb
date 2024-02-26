@@ -54,8 +54,7 @@ RSpec.describe("pipex") do
     expected_content = ""
 
     expect(outfile_content).to(eq(expected_content))
-    expect(stderr).to(include("pipex: ddd: command not found\n"))
-    expect(stderr).to(include("pipex: ccc: command not found\n"))
+    expect(stderr).to(eq("pipex: ddd: command not found\npipex: ccc: command not found\n"))
     expect(status.exitstatus).to(eq(127))
   end
 end
