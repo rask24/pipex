@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 20:03:54 by reasuke           #+#    #+#             */
-/*   Updated: 2024/02/26 15:37:38 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/02/26 15:51:47 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 
 # define SUCCESS 0
 # define FAIL    -1
+
+# define NOT_FOUND 127
 
 int			open_infile(const char *file_path);
 int			open_outfile(const char *file_path);
