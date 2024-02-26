@@ -34,10 +34,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: recursive
-      - name: Build push_swap
+      - name: Build pipex
         run: make
-      - name: Build checker
-        run: make bonus
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
