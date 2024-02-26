@@ -8,7 +8,8 @@ RSpec.describe("pipex") do
   let(:outfile_path) { "test/spec/fixture/std_outfile" }
 
   it "executes pipex command correctly" do
-    command = "./pipex #{infile_path} 'cat' 'cat -e' #{outfile_path}"
+    bash_command = "./pipex #{infile_path} 'cat' 'cat -e' #{outfile_path}"
+    command = "bash -c \"#{bash_command}\""
     _, _, status = Open3.capture3(command)
 
     outfile_content = File.read(outfile_path)
@@ -19,7 +20,8 @@ RSpec.describe("pipex") do
   end
 
   it "execute first command error case" do
-    command = "./pipex #{infile_path} 'ccc' 'cat -e' #{outfile_path}"
+    bash_command = "./pipex #{infile_path} 'ccc' 'cat -e' #{outfile_path}"
+    command = "bash -c \"#{bash_command}\""
     _, stderr, status = Open3.capture3(command)
 
     outfile_content = File.read(outfile_path)
@@ -31,7 +33,8 @@ RSpec.describe("pipex") do
   end
 
   it "execute second command error case" do
-    command = "./pipex #{infile_path} 'cat' 'ccc -e' #{outfile_path}"
+    bash_command = "./pipex #{infile_path} 'cat' 'ccc -e' #{outfile_path}"
+    command = "bash -c \"#{bash_command}\""
     _, stderr, status = Open3.capture3(command)
 
     outfile_content = File.read(outfile_path)
@@ -43,7 +46,8 @@ RSpec.describe("pipex") do
   end
 
   it "execute error case" do
-    command = "./pipex #{infile_path} 'ddd' 'ccc' #{outfile_path}"
+    bash_command = "./pipex #{infile_path} 'ddd' 'ccc' #{outfile_path}"
+    command = "bash -c \"#{bash_command}\""
     _, stderr, status = Open3.capture3(command)
 
     outfile_content = File.read(outfile_path)
