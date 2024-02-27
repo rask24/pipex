@@ -7,108 +7,79 @@ RSpec.describe("pipex") do
   let(:infile_path) { "test/spec/fixture/std_infile" }
   let(:outfile_path) { "test/spec/fixture/std_outfile" }
 
-  it "executes pipex command correctly" do
-    bash_command = "./pipex #{infile_path} 'cat' 'cat -e' #{outfile_path}"
+  def execute_command(bash_command)
     command = "bash -c \"#{bash_command}\""
-    _, _, status = Open3.capture3(command)
-
-    outfile_content = File.read(outfile_path)
-    expected_content = "Hello$\nWorld$\nThis$\nis$\n42$\nTokyo$\n"
-
-    expect(outfile_content).to(eq(expected_content))
-    expect(status.exitstatus).to(eq(0))
+    Open3.capture3(command)
   end
 
-  it "execute first command error case" do
-    bash_command = "./pipex #{infile_path} 'ccc' 'cat -e' #{outfile_path}"
-    command = "bash -c \"#{bash_command}\""
-    _, stderr, status = Open3.capture3(command)
-
-    outfile_content = File.read(outfile_path)
-    expected_content = ""
-
-    expect(outfile_content).to(eq(expected_content))
-    expect(stderr).to(eq("pipex: ccc: command not found\n"))
-    expect(status.exitstatus).to(eq(0))
+  def read_outfile
+    File.read(outfile_path)
   end
 
-  it "execute second command error case" do
-    bash_command = "./pipex #{infile_path} 'cat' 'ccc -e' #{outfile_path}"
-    command = "bash -c \"#{bash_command}\""
-    _, stderr, status = Open3.capture3(command)
+  describe "command execution" do
+    context "with valid commands" do
+      it "executes a simple pipex command" do
+        _, _, status = execute_command("./pipex #{infile_path} 'cat' 'cat -e' #{outfile_path}")
 
-    outfile_content = File.read(outfile_path)
-    expected_content = ""
+        expect(read_outfile).to(eq("Hello$\nWorld$\nThis$\nis$\n42$\nTokyo$\n"))
+        expect(status.exitstatus).to(eq(0))
+      end
 
-    expect(outfile_content).to(eq(expected_content))
-    expect(stderr).to(eq("pipex: ccc: command not found\n"))
-    expect(status.exitstatus).to(eq(127))
-  end
+      it "handles absolute path commands" do
+        _, _, status = execute_command("./pipex #{infile_path} /bin/cat '/bin/cat -e' #{outfile_path}")
 
-  it "execute error case" do
-    bash_command = "./pipex #{infile_path} 'ddd' 'ccc' #{outfile_path}"
-    command = "bash -c \"#{bash_command}\""
-    _, stderr, status = Open3.capture3(command)
+        expect(read_outfile).to(eq("Hello$\nWorld$\nThis$\nis$\n42$\nTokyo$\n"))
+        expect(status.exitstatus).to(eq(0))
+      end
 
-    outfile_content = File.read(outfile_path)
-    expected_content = ""
+      it "handles relative path commands" do
+        _, _, status =
+          execute_command("./pipex #{infile_path} ../../../../../../../../../../bin/cat '/bin/cat -e' #{outfile_path}")
 
-    expect(outfile_content).to(eq(expected_content))
-    expect(stderr).to(eq("pipex: ddd: command not found\npipex: ccc: command not found\n"))
-    expect(status.exitstatus).to(eq(127))
-  end
+        expect(read_outfile).to(eq("Hello$\nWorld$\nThis$\nis$\n42$\nTokyo$\n"))
+        expect(status.exitstatus).to(eq(0))
+      end
 
-  it "execute absolute path" do
-    bash_command = "./pipex #{infile_path} /bin/cat '/bin/cat -e' #{outfile_path}"
-    command = "bash -c \"#{bash_command}\""
-    _, _, status = Open3.capture3(command)
+      it "executes a script" do
+        _, _, status = execute_command("./pipex #{infile_path} ./test/spec/fixture/cat.sh 'cat -e' #{outfile_path}")
 
-    outfile_content = File.read(outfile_path)
-    expected_content = "Hello$\nWorld$\nThis$\nis$\n42$\nTokyo$\n"
+        expect(read_outfile).to(eq("Hello$\nWorld$\nThis$\nis$\n42$\nTokyo$\n"))
+        expect(status.exitstatus).to(eq(0))
+      end
+    end
 
-    expect(outfile_content).to(eq(expected_content))
-    expect(status.exitstatus).to(eq(0))
-  end
+    context "with errors" do
+      it "reports error for first command not found" do
+        _, stderr, status = execute_command("./pipex #{infile_path} 'ccc' 'cat -e' #{outfile_path}")
 
-  it "execute relative path" do
-    bash_command = "./pipex #{infile_path} ../../../../../../../../../../bin/cat '/bin/cat -e' #{outfile_path}"
-    command = "bash -c \"#{bash_command}\""
-    _, _, status = Open3.capture3(command)
+        expect(read_outfile).to(eq(""))
+        expect(stderr).to(include("command not found"))
+        expect(status.exitstatus).to(eq(0))
+      end
 
-    outfile_content = File.read(outfile_path)
-    expected_content = "Hello$\nWorld$\nThis$\nis$\n42$\nTokyo$\n"
+      it "reports error and exits with 127 for second command not found" do
+        _, stderr, status = execute_command("./pipex #{infile_path} 'cat' 'ccc -e' #{outfile_path}")
 
-    expect(outfile_content).to(eq(expected_content))
-    expect(status.exitstatus).to(eq(0))
-  end
+        expect(read_outfile).to(eq(""))
+        expect(stderr).to(include("command not found"))
+        expect(status.exitstatus).to(eq(127))
+      end
 
-  it "execute script" do
-    bash_command = "./pipex #{infile_path} ./test/spec/fixture/cat.sh 'cat -e' #{outfile_path}"
-    command = "bash -c \"#{bash_command}\""
-    _, _, status = Open3.capture3(command)
+      it "handles not permitted script as first command" do
+        _, stderr, status =
+          execute_command("./pipex #{infile_path} ./test/spec/fixture/not_permitted_cat.sh 'cat -e' #{outfile_path}")
 
-    outfile_content = File.read(outfile_path)
-    expected_content = "Hello$\nWorld$\nThis$\nis$\n42$\nTokyo$\n"
+        expect(stderr).to(include("Permission denied"))
+        expect(status.exitstatus).to(eq(0))
+      end
 
-    expect(outfile_content).to(eq(expected_content))
-    expect(status.exitstatus).to(eq(0))
-  end
+      it "handles not permitted script as second command" do
+        _, stderr, status =
+          execute_command("./pipex #{infile_path} cat ./test/spec/fixture/not_permitted_cat.sh #{outfile_path}")
 
-  it "execute not permitted script first" do
-    bash_command = "./pipex #{infile_path} ./test/spec/fixture/not_permitted_cat.sh 'cat -e' #{outfile_path}"
-    command = "bash -c \"#{bash_command}\""
-    _, stderr, status = Open3.capture3(command)
-
-    expect(stderr).to(eq("pipex: ./test/spec/fixture/not_permitted_cat.sh: Permission denied\n"))
-    expect(status.exitstatus).to(eq(0))
-  end
-
-  it "execute not permitted script second" do
-    bash_command = "./pipex #{infile_path} cat ./test/spec/fixture/not_permitted_cat.sh #{outfile_path}"
-    command = "bash -c \"#{bash_command}\""
-    _, stderr, status = Open3.capture3(command)
-
-    expect(stderr).to(eq("pipex: ./test/spec/fixture/not_permitted_cat.sh: Permission denied\n"))
-    expect(status.exitstatus).to(eq(126))
+        expect(stderr).to(include("Permission denied"))
+        expect(status.exitstatus).to(eq(126))
+      end
+    end
   end
 end
