@@ -6,23 +6,18 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 20:03:54 by reasuke           #+#    #+#             */
-/*   Updated: 2024/02/26 21:48:45 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/02 15:13:06 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PROCESS_H
 # define PROCESS_H
 
+# include "constants.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <string.h>
 # include <unistd.h>
-
-# define SUCCESS 0
-# define FAILURE -1
-
-# define PERMISSION_DENIED 126
-# define NOT_FOUND         127
 
 int			open_infile(const char *file_path);
 int			open_outfile(const char *file_path);
