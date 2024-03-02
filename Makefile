@@ -29,6 +29,7 @@ SRC			= $(SRC_DIR)/main.c \
 				$(SRC_DIR)/utils/exit_with_message.c
 OBJ			= $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRC))
 DEP			= $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.d, $(SRC))
+HEADER		= $(wildcard $(INC_DIR)/*.h)
 
 # colors
 RESET			= \033[0m
