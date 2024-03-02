@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 14:36:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/02/27 01:18:39 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/02 15:12:38 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 static void	_check_argument(int argc)
 {
 	if (argc != 5)
-		exit_with_message(__func__, "The number of arguments must be 4");
+		exit_with_message(__func__, "The number of arguments must be 4",
+			INVALID_ARGUMENTS);
 }
 
 int	main(int argc, char **argv, char **envp)

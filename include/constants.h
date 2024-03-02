@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   xpipe copy.c                                       :+:      :+:    :+:   */
+/*   constants.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/25 19:14:37 by reasuke           #+#    #+#             */
-/*   Updated: 2024/02/25 19:47:10 by reasuke          ###   ########.fr       */
+/*   Created: 2024/03/02 15:08:32 by reasuke           #+#    #+#             */
+/*   Updated: 2024/03/02 15:31:10 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wrapper.h"
+#ifndef CONSTANTS_H
+# define CONSTANTS_H
 
-int	xclose(int fd)
-{
-	int	ret;
+# define PROG_NAME "pipex"
 
-	ret = close(fd);
-	if (ret == FAIL)
-		exit_with_message(__func__, strerror(errno));
-	return (ret);
-}
+# define SUCCESS 0
+# define FAILURE -1
+
+# define INVALID_ARGUMENTS 1
+# define SYSTEM_CALL_FAIL  2
+# define NOT_EXECUTABLE    126
+# define NOT_FOUND         127
+
+#endif
