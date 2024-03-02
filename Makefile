@@ -8,6 +8,8 @@ PROD_FLAGS	= -O3
 DEV_FLAGS	= -O0 -g -fsanitize=address,undefined,integer
 DEP_FLAGS	= -MMD -MP
 INCLUDE		= -I $(INC_DIR) -I $(LIBFT_DIR)/$(INC_DIR)
+LD_FLAGS	= -L $(LIBFT_DIR)
+LD_LIBS		= -lft
 
 # directories
 SRC_DIR		= src
@@ -58,7 +60,7 @@ _main:
 
 .PHONY: _build
 _build: $(OBJ)
-	@$(CC) $(CFLAGS) -L $(LIBFT_DIR) -lft $^ -o $(NAME)
+	@$(CC) $(CFLAGS) $^ $(LD_FLAGS) $(LD_LIBS) -o $(NAME)
 	@echo "\n$(BLUE)[$(NAME)]\t\t./$(NAME)$(RESET)\t\t$(GREEN)compiled ✔$(RESET)"
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
