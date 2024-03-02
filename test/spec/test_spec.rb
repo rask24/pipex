@@ -6,6 +6,7 @@ require_relative "./spec_helper"
 RSpec.describe("pipex") do
   let(:infile_path) { "test/spec/fixture/std_infile" }
   let(:outfile_path) { "test/spec/fixture/std_outfile" }
+  let(:space_infile_path) { "test/spec/fixture/space_infile" }
 
   def execute_command(bash_command)
     command = "bash -c \"#{bash_command}\""
@@ -29,6 +30,13 @@ RSpec.describe("pipex") do
         _, _, status = execute_command("./pipex #{infile_path} /bin/cat '/bin/cat -e' #{outfile_path}")
 
         expect(read_outfile).to(eq("Hello$\nWorld$\nThis$\nis$\n42$\nTokyo$\n"))
+        expect(status.exitstatus).to(eq(0))
+      end
+
+      it "handles infile including a space" do
+        _, _, status = execute_command("./pipex #{space_infile_path} cat cat #{outfile_path}")
+
+        expect(read_outfile).to(eq("This\nfile\nincludes\na\nspace\n"))
         expect(status.exitstatus).to(eq(0))
       end
 
