@@ -1,4 +1,4 @@
-// Copyrifht 2024, reasuke.
+// Copyright 2024, reasuke.
 
 #include <cstdio>
 #include <cstring>

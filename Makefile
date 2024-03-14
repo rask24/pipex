@@ -8,6 +8,8 @@ PROD_FLAGS	= -O3
 DEV_FLAGS	= -O0 -g -fsanitize=address,undefined,integer
 DEP_FLAGS	= -MMD -MP
 INCLUDE		= -I $(INC_DIR) -I $(LIBFT_DIR)/$(INC_DIR)
+LD_FLAGS	= -L $(LIBFT_DIR)
+LD_LIBS		= -lft
 
 # directories
 SRC_DIR		= src
@@ -23,12 +25,16 @@ SRC			= $(SRC_DIR)/main.c \
 				$(SRC_DIR)/process/resolve_command_path.c \
 				$(SRC_DIR)/process/execute_child_process.c \
 				$(SRC_DIR)/process/execute_parent_process.c \
+				$(SRC_DIR)/split_cmd/split_cmd.c \
+				$(SRC_DIR)/split_cmd/get_token.c \
+				$(SRC_DIR)/split_cmd/create_token_list.c \
 				$(SRC_DIR)/wrapper/xpipe.c \
 				$(SRC_DIR)/wrapper/xdup2.c \
 				$(SRC_DIR)/wrapper/xfork.c \
 				$(SRC_DIR)/utils/exit_with_message.c
 OBJ			= $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRC))
 DEP			= $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.d, $(SRC))
+HEADER		= $(wildcard $(INC_DIR)/*.h)
 
 # colors
 RESET			= \033[0m
@@ -57,7 +63,7 @@ _main:
 
 .PHONY: _build
 _build: $(OBJ)
-	@$(CC) $(CFLAGS) -L $(LIBFT_DIR) -lft $^ -o $(NAME)
+	@$(CC) $(CFLAGS) $^ $(LD_FLAGS) $(LD_LIBS) -o $(NAME)
 	@echo "\n$(BLUE)[$(NAME)]\t\t./$(NAME)$(RESET)\t\t$(GREEN)compiled ✔$(RESET)"
 
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
