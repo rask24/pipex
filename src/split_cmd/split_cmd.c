@@ -6,14 +6,14 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 17:13:41 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/14 22:58:30 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/14 23:13:25 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "split_cmd.h"
 #include "libft.h"
 
-char	**generate_commands(t_list *token_list)
+static char	**generate_commands(t_list *token_list)
 {
 	char	**ret;
 	int		list_size;
@@ -32,7 +32,7 @@ char	**generate_commands(t_list *token_list)
 	return (ret);
 }
 
-void	process_token(t_list *token_list)
+static void	process_token(t_list *token_list)
 {
 	char	*tmp;
 

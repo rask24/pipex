@@ -1,4 +1,4 @@
-// Copyrifht 2024, reasuke.
+// Copyright 2024, reasuke.
 
 #include <cstdio>
 #include <cstring>
@@ -10,7 +10,7 @@ extern "C" {
 #include "split_cmd.h"
 }
 
-TEST(split_cmd, commandOnly) {
+TEST(create_token_list, commandOnly) {
   const char *input = "cat";
   t_list *token_list = create_token_list(input);
 
@@ -18,7 +18,7 @@ TEST(split_cmd, commandOnly) {
   EXPECT_EQ(token_list->next, nullptr);
 }
 
-TEST(split_cmd, commandWithOneOption) {
+TEST(create_token_list, commandWithOneOption) {
   const char *input = "cat -e";
   t_list *token_list = create_token_list(input);
 
@@ -28,7 +28,7 @@ TEST(split_cmd, commandWithOneOption) {
   EXPECT_EQ(token_list->next->next, nullptr);
 }
 
-TEST(split_cmd, commandWithTwoOptions) {
+TEST(create_token_list, commandWithTwoOptions) {
   const char *input = "grep -rn hello";
   t_list *token_list = create_token_list(input);
 
@@ -40,7 +40,7 @@ TEST(split_cmd, commandWithTwoOptions) {
   EXPECT_EQ(token_list->next->next->next, nullptr);
 }
 
-TEST(split_cmd, commandWithSingleQuotation) {
+TEST(create_token_list, commandWithSingleQuotation) {
   const char *input = "grep 'message: hello'";
   t_list *token_list = create_token_list(input);
 
