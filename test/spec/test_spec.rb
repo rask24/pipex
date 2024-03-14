@@ -7,6 +7,7 @@ RSpec.describe("pipex") do
   let(:infile_path) { "test/spec/fixture/std_infile" }
   let(:outfile_path) { "test/spec/fixture/std_outfile" }
   let(:space_infile_path) { "test/spec/fixture/space infile" }
+  let(:ft_infile_path) { "test/spec/fixture/ft_infile" }
 
   def execute_command(bash_command)
     command = ["bash", "-c", bash_command]
@@ -65,6 +66,17 @@ RSpec.describe("pipex") do
         _, _, status = execute_command("./pipex #{infile_path} ./test/spec/fixture/cat.sh 'cat -e' #{outfile_path}")
 
         expect(read_outfile).to(eq("Hello$\nWorld$\nThis$\nis$\n42$\nTokyo$\n"))
+        expect(status.exitstatus).to(eq(0))
+        clean_outfile
+      end
+
+      it "handles command with single quotation" do
+        # ./pipex 42_infile "grep 'By: reasuke'" 'cat -e' outfile
+        _, _, status = execute_command("./pipex #{ft_infile_path} \"grep 'By: reasuke'\" cat #{outfile_path}")
+
+        expect(read_outfile).to(
+          eq("/*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */\n"),
+        )
         expect(status.exitstatus).to(eq(0))
         clean_outfile
       end
