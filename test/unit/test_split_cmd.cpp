@@ -37,8 +37,26 @@ TEST(split_cmd, commandWithTwoOptions) {
   EXPECT_EQ(cmds[3], nullptr);
 }
 
+TEST(split_cmd, commandWithDelimitedByTab) {
+  const char *input = "cat\t-e";
+  char **cmds = split_cmd(input);
+
+  EXPECT_EQ(std::string(cmds[0]), std::string("cat"));
+  EXPECT_EQ(std::string(cmds[1]), std::string("-e"));
+  EXPECT_EQ(cmds[2], nullptr);
+}
+
 TEST(split_cmd, commandWithSingleQuotation) {
   const char *input = "grep 'message: hello'";
+  char **cmds = split_cmd(input);
+
+  EXPECT_EQ(std::string(cmds[0]), std::string("grep"));
+  EXPECT_EQ(std::string(cmds[1]), std::string("message: hello"));
+  EXPECT_EQ(cmds[2], nullptr);
+}
+
+TEST(split_cmd, commandWithDoubleQuotation) {
+  const char *input = "grep \"message: hello\"";
   char **cmds = split_cmd(input);
 
   EXPECT_EQ(std::string(cmds[0]), std::string("grep"));
