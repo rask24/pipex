@@ -6,12 +6,13 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 15:33:16 by reasuke           #+#    #+#             */
-/*   Updated: 2024/02/26 16:27:37 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/15 12:47:54 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "process.h"
+#include "wrapper.h"
 
 static const char	*_extract_path_env(char **envp)
 {
@@ -33,8 +34,8 @@ static const char	*_join_path_with_cmd_name(const char *path,
 	const char	*joined;
 	const char	*tmp;
 
-	tmp = ft_strjoin(path, "/");
-	joined = ft_strjoin(tmp, cmd_name);
+	tmp = ft_xstrjoin(path, "/");
+	joined = ft_xstrjoin(tmp, cmd_name);
 	free((char *)tmp);
 	return (joined);
 }
