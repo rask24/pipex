@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 20:05:51 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/02 15:13:52 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/15 16:35:51 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ int	open_outfile(const char *file_path)
 
 	fd = open(file_path, O_WRONLY | O_CREAT | O_TRUNC, 0664);
 	if (fd == FAILURE)
-		exit_with_message(__func__, strerror(errno), SYSTEM_CALL_FAIL);
+		exit_with_message(__func__, strerror(errno), FUNCTION_FAIL);
 	return (fd);
 }
