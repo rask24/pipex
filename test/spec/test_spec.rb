@@ -80,6 +80,26 @@ RSpec.describe("pipex") do
         expect(status.exitstatus).to(eq(0))
         clean_outfile
       end
+
+      it "handles command with double quotation" do
+        # ./pipex 42_infile "grep 'By: reasuke'" 'cat -e' outfile
+        _, _, status = execute_command("./pipex #{ft_infile_path} 'grep \"By: reasuke\"' cat #{outfile_path}")
+
+        expect(read_outfile).to(
+          eq("/*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */\n"),
+        )
+        expect(status.exitstatus).to(eq(0))
+        clean_outfile
+      end
+
+      it "executes a simple pipex command delimited by tab" do
+        # ./pipex infile cat "cat -e" outfile
+        _, _, status = execute_command("./pipex #{infile_path} 'cat' \"cat\t-e\" #{outfile_path}")
+
+        expect(read_outfile).to(eq("Hello$\nWorld$\nThis$\nis$\n42$\nTokyo$\n"))
+        expect(status.exitstatus).to(eq(0))
+        clean_outfile
+      end
     end
 
     context "with errors" do

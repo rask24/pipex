@@ -40,6 +40,16 @@ TEST(create_token_list, commandWithTwoOptions) {
   EXPECT_EQ(token_list->next->next->next, nullptr);
 }
 
+TEST(create_token_list, commandWithDelimitedByTab) {
+  const char *input = "cat\t-e";
+  t_list *token_list = create_token_list(input);
+
+  EXPECT_EQ(std::string(get_token(token_list)->content), std::string("cat"));
+  EXPECT_EQ(std::string(get_token(token_list->next)->content),
+            std::string("-e"));
+  EXPECT_EQ(token_list->next->next, nullptr);
+}
+
 TEST(create_token_list, commandWithSingleQuotation) {
   const char *input = "grep 'message: hello'";
   t_list *token_list = create_token_list(input);
@@ -47,5 +57,15 @@ TEST(create_token_list, commandWithSingleQuotation) {
   EXPECT_EQ(std::string(get_token(token_list)->content), std::string("grep"));
   EXPECT_EQ(std::string(get_token(token_list->next)->content),
             std::string("'message: hello'"));
+  EXPECT_EQ(token_list->next->next, nullptr);
+}
+
+TEST(create_token_list, commandWithDoubleQuotation) {
+  const char *input = "grep \"message: hello\"";
+  t_list *token_list = create_token_list(input);
+
+  EXPECT_EQ(std::string(get_token(token_list)->content), std::string("grep"));
+  EXPECT_EQ(std::string(get_token(token_list->next)->content),
+            std::string("\"message: hello\""));
   EXPECT_EQ(token_list->next->next, nullptr);
 }
