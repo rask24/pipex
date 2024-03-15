@@ -72,3 +72,12 @@ TEST(split_cmd, commandWithEscapedDoubleQuotation) {
   EXPECT_EQ(std::string(cmds[1]), std::string("double\"quotation"));
   EXPECT_EQ(cmds[2], nullptr);
 }
+
+TEST(create_token_list, commandWithManyEscapedDoubleQuotation) {
+  const char *input = "grep \"dou\\\"ble\\\"quota\\\"tion\"";
+  char **cmds = split_cmd(input);
+
+  EXPECT_EQ(std::string(cmds[0]), std::string("grep"));
+  EXPECT_EQ(std::string(cmds[1]), std::string("dou\"ble\"quota\"tion"));
+  EXPECT_EQ(cmds[2], nullptr);
+}

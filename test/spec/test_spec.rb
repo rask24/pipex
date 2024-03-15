@@ -100,6 +100,15 @@ RSpec.describe("pipex") do
         expect(status.exitstatus).to(eq(0))
         clean_outfile
       end
+
+      it "executes a simple pipex command includes escaped double quotation" do
+        # ./pipex infile cat 'echo "double\\\"quotation"' outfile
+        _, _, status = execute_command("./pipex #{infile_path} 'cat' 'echo -n \"double\\\"quotation\"' #{outfile_path}")
+
+        expect(read_outfile).to(eq("double\"quotation"))
+        expect(status.exitstatus).to(eq(0))
+        clean_outfile
+      end
     end
 
     context "with errors" do
