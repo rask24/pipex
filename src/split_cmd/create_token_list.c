@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 22:54:37 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/14 22:55:00 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/15 17:05:03 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ static size_t	calc_token_length(const char *str)
 	ret = 0;
 	if (*str == '\'')
 		return (ft_strchr(str + 1, '\'') - str + 1);
-	while (str[ret] && str[ret] != ' ')
+	else if (*str == '"')
+		return (ft_strchr(str + 1, '"') - str + 1);
+	while (str[ret] && str[ret] != ' ' && str[ret] != '\t')
 		ret++;
 	return (ret);
 }
@@ -29,6 +31,8 @@ static t_token_type	calc_token_type(const char *str)
 {
 	if (*str == '\'')
 		return (TK_SINGLE_QUOTE);
+	else if (*str == '"')
+		return (TK_DOUBLE_QUOTE);
 	return (TK_TEXT);
 }
 
@@ -51,7 +55,7 @@ t_list	*create_token_list(const char *cmd)
 	tk_list = NULL;
 	while (*cmd)
 	{
-		if (*cmd == ' ')
+		if (*cmd == ' ' || *cmd == '\t')
 			cmd++;
 		else
 		{

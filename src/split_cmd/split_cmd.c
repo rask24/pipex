@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 17:13:41 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/14 23:13:25 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/15 17:08:02 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static void	process_token(t_list *token_list)
 
 	while (token_list)
 	{
-		if (((t_token *)token_list->content)->type == TK_SINGLE_QUOTE)
+		if (get_token(token_list)->type == TK_SINGLE_QUOTE
+			|| get_token(token_list)->type == TK_DOUBLE_QUOTE)
 		{
 			tmp = (char *)get_token(token_list)->content;
 			get_token(token_list)->content = ft_strndup(

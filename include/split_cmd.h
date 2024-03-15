@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 22:40:27 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/14 22:55:58 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/15 16:54:21 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef enum e_token_type
 {
 	TK_TEXT,
 	TK_SINGLE_QUOTE,
+	TK_DOUBLE_QUOTE,
 }	t_token_type;
 
 typedef struct s_token
