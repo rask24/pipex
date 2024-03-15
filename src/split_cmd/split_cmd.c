@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 17:13:41 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/15 18:14:11 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/15 18:30:06 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,44 @@ static char	**_generate_commands(t_list *token_list)
 	return (ret);
 }
 
+static char	*_process_escape(char *str)
+{
+	int	len;
+	int	i;
+
+	len = ft_strlen(str);
+	i = 0;
+	while (i < len)
+	{
+		if (str[i] == '\\' && str[i + 1] == '"')
+		{
+			ft_memmove(&str[i], &str[i + 1], len - i);
+			len--;
+		}
+		i++;
+	}
+	return (str);
+}
+
 static void	_process_token(t_list *token_list)
 {
 	const char	*tmp;
+	char		*trimed;
 
 	while (token_list)
 	{
 		if (get_token(token_list)->type == TK_SINGLE_QUOTE)
 		{
 			tmp = get_token(token_list)->content;
-			get_token(token_list)->content =
-				ft_strtrim(get_token(token_list)->content, "'");
+			get_token(token_list)->content
+				= ft_strtrim(get_token(token_list)->content, "'");
 			free((char *)tmp);
 		}
 		if (get_token(token_list)->type == TK_DOUBLE_QUOTE)
 		{
 			tmp = get_token(token_list)->content;
-			get_token(token_list)->content =
-				ft_strtrim(get_token(token_list)->content, "\"");
+			trimed = ft_strtrim(get_token(token_list)->content, "\"");
+			get_token(token_list)->content = _process_escape(trimed);
 			free((char *)tmp);
 		}
 		token_list = token_list->next;
