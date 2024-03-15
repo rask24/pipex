@@ -63,3 +63,12 @@ TEST(split_cmd, commandWithDoubleQuotation) {
   EXPECT_EQ(std::string(cmds[1]), std::string("message: hello"));
   EXPECT_EQ(cmds[2], nullptr);
 }
+
+TEST(split_cmd, commandWithEscapedDoubleQuotation) {
+  const char *input = "grep \"message\\\"hello\"";
+  char **cmds = split_cmd(input);
+
+  EXPECT_EQ(std::string(cmds[0]), std::string("grep"));
+  EXPECT_EQ(std::string(cmds[1]), std::string("message\"hello"));
+  EXPECT_EQ(cmds[2], nullptr);
+}
