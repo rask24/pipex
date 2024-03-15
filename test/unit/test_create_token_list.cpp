@@ -71,12 +71,11 @@ TEST(create_token_list, commandWithDoubleQuotation) {
 }
 
 TEST(create_token_list, commandWithEscapedDoubleQuotation) {
-  const char *input = "grep \"message\\\"hello\"";
-  std::cout << input << "\n";
+  const char *input = "grep \"double\\\"quotation\"";
   t_list *token_list = create_token_list(input);
 
   EXPECT_EQ(std::string(get_token(token_list)->content), std::string("grep"));
   EXPECT_EQ(std::string(get_token(token_list->next)->content),
-            std::string("\"message\\\"hello\""));
+            std::string("\"double\\\"quotation\""));
   EXPECT_EQ(token_list->next->next, nullptr);
 }

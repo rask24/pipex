@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 22:54:37 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/15 17:09:39 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/15 17:56:49 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,24 @@
 
 static size_t	_calc_token_length(const char *str)
 {
-	size_t	ret;
+	size_t		ret;
+	const char	*p_dq;
 
 	ret = 0;
 	if (*str == '\'')
 		return (ft_strchr(str + 1, '\'') - str + 1);
 	else if (*str == '"')
-		return (ft_strchr(str + 1, '"') - str + 1);
+	{
+		p_dq = str;
+		while (true)
+		{
+			p_dq = ft_strchr(p_dq + 1, '"');
+			if (p_dq[-1] == '\\')
+				p_dq++;
+			else
+				return (p_dq - str + 1);
+		}
+	}
 	while (str[ret] && str[ret] != ' ' && str[ret] != '\t')
 		ret++;
 	return (ret);
