@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 17:13:41 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/15 18:39:08 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/15 18:59:44 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static char	*_process_escape(char *str)
 	i = 0;
 	while (i < len)
 	{
-		if (str[i] == '\\' && str[i + 1] == '"')
+		if (str[i] == '\\' && (str[i + 1] == '"' || str[i + 1] == '\\'))
 		{
 			ft_memmove(&str[i], &str[i + 1], len - i);
 			len--;
