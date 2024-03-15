@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:29:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/15 12:23:01 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/15 12:30:55 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,30 @@ static void	_not_found_exit(const char *cmd_name)
 	exit(NOT_FOUND);
 }
 
-static void	_execute_direct_path(char **cmd_list, char **envp)
+static void	_execute_file_path(char **cmd_list, char **envp)
 {
 	if (access(cmd_list[0], X_OK) == SUCCESS)
 		execve(cmd_list[0], cmd_list, envp);
 	exit_with_message(PROG_NAME, strerror(errno), NOT_EXECUTABLE);
 }
 
-void	execute_command(const char *cmd, char **envp)
+static void	_execute_env_path(char **cmd_list, char **envp)
 {
-	char		**cmd_list;
 	const char	*exec_path;
 
-	cmd_list = split_cmd(cmd);
-	if (ft_strchr(cmd_list[0], '/') && access(cmd_list[0], F_OK) == SUCCESS)
-		_execute_direct_path(cmd_list, envp);
 	exec_path = resolve_command_path(cmd_list[0], envp);
 	if (!exec_path)
 		_not_found_exit(cmd_list[0]);
 	execve(exec_path, cmd_list, envp);
+}
+
+void	execute_command(const char *cmd, char **envp)
+{
+	char		**cmd_list;
+
+	cmd_list = split_cmd(cmd);
+	if (ft_strchr(cmd_list[0], '/') && access(cmd_list[0], F_OK) == SUCCESS)
+		_execute_file_path(cmd_list, envp);
+	else
+		_execute_env_path(cmd_list, envp);
 }
