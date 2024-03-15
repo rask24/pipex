@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 17:13:41 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/15 18:30:06 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/15 18:39:08 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ static void	_process_token(t_list *token_list)
 		if (get_token(token_list)->type == TK_SINGLE_QUOTE)
 		{
 			tmp = get_token(token_list)->content;
-			get_token(token_list)->content
-				= ft_strtrim(get_token(token_list)->content, "'");
+			get_token(token_list)->content = ft_strtrim(
+				get_token(token_list)->content, "\'");
 			free((char *)tmp);
 		}
 		if (get_token(token_list)->type == TK_DOUBLE_QUOTE)
