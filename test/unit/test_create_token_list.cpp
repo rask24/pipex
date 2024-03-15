@@ -79,3 +79,13 @@ TEST(create_token_list, commandWithEscapedDoubleQuotation) {
             std::string("\"double\\\"quotation\""));
   EXPECT_EQ(token_list->next->next, nullptr);
 }
+
+TEST(create_token_list, commandWithEscapedBackSlash) {
+  const char *input = "grep \"back\\\\slash\"";
+  t_list *token_list = create_token_list(input);
+
+  EXPECT_EQ(std::string(get_token(token_list)->content), std::string("grep"));
+  EXPECT_EQ(std::string(get_token(token_list->next)->content),
+            std::string("\"back\\\\slash\""));
+  EXPECT_EQ(token_list->next->next, nullptr);
+}

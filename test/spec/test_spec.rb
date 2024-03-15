@@ -109,6 +109,15 @@ RSpec.describe("pipex") do
         expect(status.exitstatus).to(eq(0))
         clean_outfile
       end
+
+      it "executes a simple pipex command includes escaped backslash" do
+        # ./pipex infile cat 'echo "back\\\\slash"' outfile
+        _, _, status = execute_command("./pipex #{infile_path} 'cat' 'echo -n \"back\\\\slash\"' #{outfile_path}")
+
+        expect(read_outfile).to(eq("back\\slash"))
+        expect(status.exitstatus).to(eq(0))
+        clean_outfile
+      end
     end
 
     context "with errors" do

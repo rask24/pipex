@@ -81,3 +81,21 @@ TEST(create_token_list, commandWithManyEscapedDoubleQuotation) {
   EXPECT_EQ(std::string(cmds[1]), std::string("dou\"ble\"quota\"tion"));
   EXPECT_EQ(cmds[2], nullptr);
 }
+
+TEST(split_cmd, commandWithEscapedBackSlash) {
+  const char *input = "grep \"back\\\\slash\"";
+  char **cmds = split_cmd(input);
+
+  EXPECT_EQ(std::string(cmds[0]), std::string("grep"));
+  EXPECT_EQ(std::string(cmds[1]), std::string("back\\slash"));
+  EXPECT_EQ(cmds[2], nullptr);
+}
+
+TEST(split_cmd, commandWithManyEscapedBackSlash) {
+  const char *input = "grep \"ba\\\\ck\\\\sla\\\\sh\"";
+  char **cmds = split_cmd(input);
+
+  EXPECT_EQ(std::string(cmds[0]), std::string("grep"));
+  EXPECT_EQ(std::string(cmds[1]), std::string("ba\\ck\\sla\\sh"));
+  EXPECT_EQ(cmds[2], nullptr);
+}
