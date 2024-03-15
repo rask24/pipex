@@ -6,14 +6,14 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 22:54:37 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/15 17:05:03 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/15 17:09:39 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "split_cmd.h"
 #include "libft.h"
 
-static size_t	calc_token_length(const char *str)
+static size_t	_calc_token_length(const char *str)
 {
 	size_t	ret;
 
@@ -27,7 +27,7 @@ static size_t	calc_token_length(const char *str)
 	return (ret);
 }
 
-static t_token_type	calc_token_type(const char *str)
+static t_token_type	_calc_token_type(const char *str)
 {
 	if (*str == '\'')
 		return (TK_SINGLE_QUOTE);
@@ -36,13 +36,13 @@ static t_token_type	calc_token_type(const char *str)
 	return (TK_TEXT);
 }
 
-static t_token	*create_token(const char *cmd)
+static t_token	*_create_token(const char *cmd)
 {
 	t_token	*token;
 
 	token = ft_xmalloc(sizeof(t_token));
-	token->len = calc_token_length(cmd);
-	token->type = calc_token_type(cmd);
+	token->len = _calc_token_length(cmd);
+	token->type = _calc_token_type(cmd);
 	token->content = ft_strndup(cmd, token->len);
 	return (token);
 }
@@ -59,7 +59,7 @@ t_list	*create_token_list(const char *cmd)
 			cmd++;
 		else
 		{
-			token = create_token(cmd);
+			token = _create_token(cmd);
 			ft_lstadd_back(&tk_list, ft_lstnew(token));
 			cmd += token->len;
 		}
