@@ -6,12 +6,13 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 15:33:16 by reasuke           #+#    #+#             */
-/*   Updated: 2024/02/26 16:27:37 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/15 16:33:47 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "process.h"
+#include "wrapper.h"
 
 static const char	*_extract_path_env(char **envp)
 {
@@ -33,8 +34,8 @@ static const char	*_join_path_with_cmd_name(const char *path,
 	const char	*joined;
 	const char	*tmp;
 
-	tmp = ft_strjoin(path, "/");
-	joined = ft_strjoin(tmp, cmd_name);
+	tmp = ft_xstrjoin(path, "/");
+	joined = ft_xstrjoin(tmp, cmd_name);
 	free((char *)tmp);
 	return (joined);
 }
@@ -42,15 +43,17 @@ static const char	*_join_path_with_cmd_name(const char *path,
 const char	*resolve_command_path(const char *cmd_name, char **envp)
 {
 	char		**paths;
+	const char	*path_env;
 	const char	*tmp_path;
 	const char	*exec_path;
 	int			i;
 
-	paths = ft_split(_extract_path_env(envp), ':');
-	if (!paths)
+	path_env = _extract_path_env(envp);
+	if (!path_env)
 		return (NULL);
+	paths = ft_xsplit(path_env, ':');
 	i = 0;
-	while (paths && paths[i])
+	while (paths[i])
 	{
 		tmp_path = _join_path_with_cmd_name(paths[i], cmd_name);
 		if (access(tmp_path, X_OK) == SUCCESS)
