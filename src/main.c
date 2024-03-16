@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 14:36:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/02 15:41:31 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/16 12:21:06 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "wrapper.h"
 #include "process.h"
 
-static void	_check_argument(int argc)
+static void	_check_arguments(int argc)
 {
 	if (argc != 5)
 		exit_with_message(__func__, "The number of arguments must be 4",
@@ -27,7 +27,7 @@ int	main(int argc, char **argv, char **envp)
 	int		fds[2];
 	pid_t	pid;
 
-	_check_argument(argc);
+	_check_arguments(argc);
 	xpipe(fds);
 	pid = xfork();
 	if (pid == CHILD)
