@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_child_process.c                            :+:      :+:    :+:   */
+/*   execute_infile_process.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 20:14:25 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/16 16:04:39 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/16 16:49:28 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "process.h"
 #include "wrapper.h"
 
-int	execute_infile_process(const char *infile_path, const char *cmd,
-		int fds[2], char **envp)
+pid_t	execute_infile_process(const char *infile_path, const char *cmd,
+			int fds[2], char **envp)
 {
 	pid_t	pid;
 	int		in_fd;

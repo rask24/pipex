@@ -6,15 +6,15 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 20:14:25 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/16 16:20:35 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/16 16:49:34 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "process.h"
 #include "wrapper.h"
 
-int	execute_outfile_process(const char *outfile_path, const char *cmd,
-		int fds[2], char **envp)
+pid_t	execute_outfile_process(const char *outfile_path, const char *cmd,
+			int fds[2], char **envp)
 {
 	pid_t	pid;
 	int		out_fd;

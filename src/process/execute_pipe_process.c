@@ -6,15 +6,15 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 16:33:17 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/16 16:35:46 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/16 16:49:16 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "process.h"
 #include "wrapper.h"
 
-int	execute_pipe_process(const char *cmd, int prev_fds[2], int next_fds[2],
-		char **envp)
+pid_t	execute_pipe_process(const char *cmd, int prev_fds[2], int next_fds[2],
+			char **envp)
 {
 	pid_t	pid;
 
