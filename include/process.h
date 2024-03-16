@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 20:03:54 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/14 22:41:01 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/16 15:38:21 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 
 int			open_infile(const char *file_path);
 int			open_outfile(const char *file_path);
-void		execute_child_process(const char *infile_path, const char *cmd,
+int			execute_child_process(const char *infile_path, const char *cmd,
 				int fds[2], char **envp);
-void		execute_parent_process(const char *outfile_path, const char *cmd,
+int			execute_parent_process(const char *outfile_path, const char *cmd,
 				int fds[2], char **envp);
 void		execute_command(const char *cmd, char **envp);
 const char	*resolve_command_path(const char *cmd_name, char **envp);

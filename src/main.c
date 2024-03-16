@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 14:36:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/16 12:21:06 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/16 15:48:09 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,26 @@ static void	_check_arguments(int argc)
 			INVALID_ARGUMENTS);
 }
 
+static void	_close_all_pipes(int fds[2])
+{
+	close(fds[0]);
+	close(fds[1]);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	int		fds[2];
 	pid_t	pid;
+	int		status;
 
 	_check_arguments(argc);
 	xpipe(fds);
-	pid = xfork();
-	if (pid == CHILD)
-		execute_child_process(argv[1], argv[2], fds, envp);
-	wait(NULL);
-	execute_parent_process(argv[4], argv[3], fds, envp);
-	return (0);
+	pid = execute_child_process(argv[1], argv[2], fds, envp);
+	waitpid(pid, NULL, 0);
+	pid = execute_parent_process(argv[4], argv[3], fds, envp);
+	_close_all_pipes(fds);
+	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	return (-1);
 }
