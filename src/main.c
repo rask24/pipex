@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 14:36:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/16 15:48:09 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/16 15:53:15 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,8 @@
 
 static void	_check_arguments(int argc)
 {
-	if (argc != 5)
-		exit_with_message(__func__, "The number of arguments must be 4",
-			INVALID_ARGUMENTS);
+	if (argc < 5)
+		exit_with_message(__func__, MSG_INV_ARGS, INVALID_ARGUMENTS);
 }
 
 static void	_close_all_pipes(int fds[2])
