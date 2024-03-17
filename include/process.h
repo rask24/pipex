@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 20:03:54 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/16 16:50:06 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/17 12:42:09 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,12 @@
 # include "constants.h"
 # include <errno.h>
 # include <fcntl.h>
+# include <stdlib.h>
 # include <string.h>
+# include <sys/wait.h>
 # include <unistd.h>
 
-int			open_infile(const char *file_path);
-int			open_outfile(const char *file_path);
+void		execute_processes(int *fds, int argc, char **argv, char **envp);
 pid_t		execute_infile_process(const char *infile_path, const char *cmd,
 				int fds[2], char **envp);
 pid_t		execute_pipe_process(const char *cmd, int prev_fds[2],

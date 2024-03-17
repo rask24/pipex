@@ -6,12 +6,22 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 20:14:25 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/16 16:49:28 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/17 15:12:19 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "process.h"
 #include "wrapper.h"
+
+int	_open_infile(const char *file_path)
+{
+	int	fd;
+
+	fd = open(file_path, O_RDONLY);
+	if (fd == FAILURE)
+		exit_with_message(__func__, strerror(errno), FUNCTION_FAIL);
+	return (fd);
+}
 
 pid_t	execute_infile_process(const char *infile_path, const char *cmd,
 			int fds[2], char **envp)
@@ -22,10 +32,10 @@ pid_t	execute_infile_process(const char *infile_path, const char *cmd,
 	pid = xfork();
 	if (pid != CHILD)
 		return (pid);
-	in_fd = open_infile(infile_path);
-	xdup2(in_fd, STDIN_FILENO);
-	xdup2(fds[1], STDOUT_FILENO);
+	in_fd = _open_infile(infile_path);
 	close(fds[0]);
+	xdup2(fds[1], STDOUT_FILENO);
+	xdup2(in_fd, STDIN_FILENO);
 	execute_command(cmd, envp);
 	return (0);
 }

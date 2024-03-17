@@ -19,10 +19,9 @@ LIBFT_DIR	= libft
 
 # files
 SRC			= $(SRC_DIR)/main.c \
-				$(SRC_DIR)/process/open_infile.c \
-				$(SRC_DIR)/process/open_outfile.c \
 				$(SRC_DIR)/process/execute_command.c \
 				$(SRC_DIR)/process/resolve_command_path.c \
+				$(SRC_DIR)/process/execute_processes.c \
 				$(SRC_DIR)/process/execute_infile_process.c \
 				$(SRC_DIR)/process/execute_pipe_process.c \
 				$(SRC_DIR)/process/execute_outfile_process.c \
