@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 20:03:54 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/17 16:19:01 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/17 16:22:56 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-void		execute_processes(int **fds, int argc, char **argv, char **envp);
+int			execute_processes(int **fds, int argc, char **argv, char **envp);
 pid_t		execute_infile_process(const char *infile_path, const char *cmd,
 				int fds[2], char **envp);
 pid_t		execute_pipe_process(const char *cmd, int prev_fds[2],

@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 14:36:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/17 16:18:16 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/17 16:26:48 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,31 @@ static void	_init_pipes(int ***p_fds, int argc)
 	}
 }
 
+static void	_free_pipe_fds(int **fds, int argc)
+{
+	int	n;
+	int	i;
+
+	n = argc - 4;
+	i = 0;
+	while (i < n)
+	{
+		free(fds[i]);
+		i++;
+	}
+	free(fds);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	int		**fds;
+	int		status;
 
 	_check_arguments(argc);
 	_init_pipes(&fds, argc);
-	execute_processes(fds, argc, argv, envp);
+	status = execute_processes(fds, argc, argv, envp);
+	_free_pipe_fds(fds, argc);
+	if (WIFEXITED(status))
+		exit(WEXITSTATUS(status));
 	return (-1);
 }

@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:38:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/17 16:19:56 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/17 16:22:47 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	_close_pipe_end(int fds[2])
 	close(fds[1]);
 }
 
-void	execute_processes(int **fds, int argc, char **argv, char **envp)
+int	execute_processes(int **fds, int argc, char **argv, char **envp)
 {
 	pid_t	ch_pid;
 	int		status;
@@ -38,7 +38,5 @@ void	execute_processes(int **fds, int argc, char **argv, char **envp)
 			envp);
 	_close_pipe_end(fds[i]);
 	waitpid(ch_pid, &status, 0);
-	free(fds);
-	if (WIFEXITED(status))
-		exit(WEXITSTATUS(status));
+	return (status);
 }
