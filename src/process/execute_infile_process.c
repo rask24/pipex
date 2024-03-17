@@ -6,14 +6,14 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 20:14:25 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/17 15:12:19 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/17 18:37:20 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "process.h"
 #include "wrapper.h"
 
-int	_open_infile(const char *file_path)
+static int	_open_infile(const char *file_path)
 {
 	int	fd;
 

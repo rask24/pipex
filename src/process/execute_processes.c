@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:38:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/17 18:32:23 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/18 00:08:41 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ int	_execute_heredoc_append_processes(int **fds, int argc, char **argv,
 	int		status;
 	int		i;
 
-	ch_pid = execute_infile_process(argv[1], argv[2], fds[0], envp);
+	ch_pid = execute_heredoc_process(argv[2], argv[3], fds[0], envp);
 	waitpid(ch_pid, &status, 0);
 	i = 0;
-	while (i < argc - 5)
+	while (i < argc - 6)
 	{
-		ch_pid = execute_pipe_process(argv[3 + i], fds[i], fds[i + 1], envp);
+		ch_pid = execute_pipe_process(argv[4 + i], fds[i], fds[i + 1], envp);
 		_close_pipe_end(fds[i]);
 		waitpid(ch_pid, &status, 0);
 		i++;

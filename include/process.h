@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 20:03:54 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/17 18:32:10 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/18 00:07:08 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,12 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
+# define TMPFILE ".heredoc_tmpfile"
+
 int			execute_processes(int **fds, int argc, char **argv, char **envp);
 pid_t		execute_infile_process(const char *infile_path, const char *cmd,
+				int fds[2], char **envp);
+pid_t		execute_heredoc_process(const char *delimiter, const char *cmd,
 				int fds[2], char **envp);
 pid_t		execute_pipe_process(const char *cmd, int prev_fds[2],
 				int next_fds[2], char **envp);

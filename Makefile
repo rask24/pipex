@@ -23,6 +23,7 @@ SRC			= $(SRC_DIR)/main.c \
 				$(SRC_DIR)/process/resolve_command_path.c \
 				$(SRC_DIR)/process/execute_processes.c \
 				$(SRC_DIR)/process/execute_infile_process.c \
+				$(SRC_DIR)/process/execute_heredoc_process.c \
 				$(SRC_DIR)/process/execute_pipe_process.c \
 				$(SRC_DIR)/process/execute_outfile_overwrite_process.c \
 				$(SRC_DIR)/process/execute_outfile_append_process.c \
