@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:38:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/17 18:28:25 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/17 18:32:23 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	_execute_heredoc_append_processes(int **fds, int argc, char **argv,
 		waitpid(ch_pid, &status, 0);
 		i++;
 	}
-	ch_pid = execute_outfile_overwrite_process(argv[argc - 1], argv[argc - 2],
+	ch_pid = execute_outfile_append_process(argv[argc - 1], argv[argc - 2],
 			fds[i], envp);
 	_close_pipe_end(fds[i]);
 	waitpid(ch_pid, &status, 0);

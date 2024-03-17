@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_outfile_process.c                          :+:      :+:    :+:   */
+/*   execute_outfile_overwrite_process.c                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 20:14:25 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/17 18:26:56 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/17 18:32:42 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "process.h"
 #include "wrapper.h"
 
-int	_open_outfile(const char *file_path)
+static int	_open_outfile(const char *file_path)
 {
 	int	fd;
 
