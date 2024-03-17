@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_infile.c                                      :+:      :+:    :+:   */
+/*   execute_infile_process.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/25 20:05:51 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/15 16:35:51 by reasuke          ###   ########.fr       */
+/*   Created: 2024/02/25 20:14:25 by reasuke           #+#    #+#             */
+/*   Updated: 2024/03/17 15:12:19 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "process.h"
-#include "utils.h"
+#include "wrapper.h"
 
-int	open_infile(const char *file_path)
+int	_open_infile(const char *file_path)
 {
 	int	fd;
 
@@ -21,4 +21,21 @@ int	open_infile(const char *file_path)
 	if (fd == FAILURE)
 		exit_with_message(__func__, strerror(errno), FUNCTION_FAIL);
 	return (fd);
+}
+
+pid_t	execute_infile_process(const char *infile_path, const char *cmd,
+			int fds[2], char **envp)
+{
+	pid_t	pid;
+	int		in_fd;
+
+	pid = xfork();
+	if (pid != CHILD)
+		return (pid);
+	in_fd = _open_infile(infile_path);
+	close(fds[0]);
+	xdup2(fds[1], STDOUT_FILENO);
+	xdup2(in_fd, STDIN_FILENO);
+	execute_command(cmd, envp);
+	return (0);
 }

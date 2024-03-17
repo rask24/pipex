@@ -118,6 +118,26 @@ RSpec.describe("pipex") do
         expect(status.exitstatus).to(eq(0))
         clean_outfile
       end
+
+      it "executes a multi pipex command" do
+        # ./pipex infile cat cat cat outfile
+        _, _, status = execute_command("./pipex #{infile_path} cat cat cat #{outfile_path}")
+
+        expect(read_outfile).to(eq("Hello\nWorld\nThis\nis\n42\nTokyo\n"))
+        expect(status.exitstatus).to(eq(0))
+        clean_outfile
+      end
+
+      it "executes a multi pipex command" do
+        # ./pipex infile cat cat cat cat cat cat 'head -n 1' cat cat cat cat cat cat cat cat outfile
+        _, _, status = execute_command(
+          "./pipex #{infile_path} cat cat cat cat cat cat 'head -n 1' cat cat cat cat cat cat cat cat #{outfile_path}",
+        )
+
+        expect(read_outfile).to(eq("Hello\n"))
+        expect(status.exitstatus).to(eq(0))
+        clean_outfile
+      end
     end
 
     context "with errors" do
@@ -126,7 +146,7 @@ RSpec.describe("pipex") do
         _, stderr, status = execute_command("./pipex #{infile_path} 'ccc' 'cat -e' #{outfile_path}")
 
         expect(read_outfile).to(eq(""))
-        expect(stderr).to(include("command not found"))
+        expect(stderr).to(eq("pipex: ccc: command not found\n"))
         expect(status.exitstatus).to(eq(0))
         clean_outfile
       end
@@ -136,7 +156,7 @@ RSpec.describe("pipex") do
         _, stderr, status = execute_command("./pipex #{infile_path} 'cat' 'ccc -e' #{outfile_path}")
 
         expect(read_outfile).to(eq(""))
-        expect(stderr).to(include("command not found"))
+        expect(stderr).to(include("pipex: ccc: command not found\n"))
         expect(status.exitstatus).to(eq(127))
         clean_outfile
       end
@@ -146,7 +166,7 @@ RSpec.describe("pipex") do
         _, stderr, status =
           execute_command("./pipex #{infile_path} ./test/spec/fixture/not_permitted_cat.sh 'cat -e' #{outfile_path}")
 
-        expect(stderr).to(include("Permission denied"))
+        expect(stderr).to(eq("pipex: ./test/spec/fixture/not_permitted_cat.sh: Permission denied\n"))
         expect(status.exitstatus).to(eq(0))
         clean_outfile
       end
@@ -156,8 +176,25 @@ RSpec.describe("pipex") do
         _, stderr, status =
           execute_command("./pipex #{infile_path} cat ./test/spec/fixture/not_permitted_cat.sh #{outfile_path}")
 
-        expect(stderr).to(include("Permission denied"))
+        expect(stderr).to(eq("pipex: ./test/spec/fixture/not_permitted_cat.sh: Permission denied\n"))
         expect(status.exitstatus).to(eq(126))
+        clean_outfile
+      end
+
+      it "reports error for each command" do
+        # ./pipex infile a b c d outfile
+        _, stderr, status = execute_command("./pipex #{infile_path} a b c d e f g #{outfile_path}")
+
+        expected = ""
+        expected += "pipex: a: command not found\n"
+        expected += "pipex: b: command not found\n"
+        expected += "pipex: c: command not found\n"
+        expected += "pipex: d: command not found\n"
+        expected += "pipex: e: command not found\n"
+        expected += "pipex: f: command not found\n"
+        expected += "pipex: g: command not found\n"
+        expect(stderr).to(eq(expected))
+        expect(status.exitstatus).to(eq(127))
         clean_outfile
       end
     end

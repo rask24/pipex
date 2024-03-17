@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_outfile.c                                     :+:      :+:    :+:   */
+/*   execute_pipe_process.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/25 20:05:51 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/15 16:35:51 by reasuke          ###   ########.fr       */
+/*   Created: 2024/03/16 16:33:17 by reasuke           #+#    #+#             */
+/*   Updated: 2024/03/16 16:49:16 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "process.h"
-#include "utils.h"
+#include "wrapper.h"
 
-int	open_outfile(const char *file_path)
+pid_t	execute_pipe_process(const char *cmd, int prev_fds[2], int next_fds[2],
+			char **envp)
 {
-	int	fd;
+	pid_t	pid;
 
-	fd = open(file_path, O_WRONLY | O_CREAT | O_TRUNC, 0664);
-	if (fd == FAILURE)
-		exit_with_message(__func__, strerror(errno), FUNCTION_FAIL);
-	return (fd);
+	pid = xfork();
+	if (pid != CHILD)
+		return (pid);
+	close(prev_fds[1]);
+	xdup2(prev_fds[0], STDIN_FILENO);
+	close(next_fds[0]);
+	xdup2(next_fds[1], STDOUT_FILENO);
+	execute_command(cmd, envp);
+	return (0);
 }
