@@ -6,17 +6,18 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:38:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/18 00:08:41 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/23 19:46:27 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "process.h"
 #include "libft.h"
+#include "wrapper.h"
 
 static void	_close_pipe_end(int fds[2])
 {
-	close(fds[0]);
-	close(fds[1]);
+	xclose(fds[0]);
+	xclose(fds[1]);
 }
 
 int	_execute_infile_outfile_processes(int **fds, int argc, char **argv,
