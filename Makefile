@@ -32,8 +32,9 @@ SRC			= $(SRC_DIR)/main.c \
 				$(SRC_DIR)/split_cmd/create_token_list.c \
 				$(SRC_DIR)/wrapper/ft_xsplit.c \
 				$(SRC_DIR)/wrapper/ft_xstrjoin.c \
-				$(SRC_DIR)/wrapper/xclose.c \
 				$(SRC_DIR)/wrapper/xopen.c \
+				$(SRC_DIR)/wrapper/xopen_with_permission.c \
+				$(SRC_DIR)/wrapper/xclose.c \
 				$(SRC_DIR)/wrapper/xpipe.c \
 				$(SRC_DIR)/wrapper/xdup2.c \
 				$(SRC_DIR)/wrapper/xfork.c \
