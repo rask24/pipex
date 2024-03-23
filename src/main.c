@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 14:36:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/17 16:26:48 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/23 19:39:00 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 
 static void	_check_arguments(int argc)
 {
-	if (argc < 5)
+if (argc < 5)
 		exit_with_message(__func__, MSG_INV_ARGS, INVALID_ARGUMENTS);
 }
 
