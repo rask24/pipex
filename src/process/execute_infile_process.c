@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 20:14:25 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/17 18:37:20 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/23 19:45:34 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ pid_t	execute_infile_process(const char *infile_path, const char *cmd,
 	if (pid != CHILD)
 		return (pid);
 	in_fd = _open_infile(infile_path);
-	close(fds[0]);
+	xclose(fds[0]);
 	xdup2(fds[1], STDOUT_FILENO);
 	xdup2(in_fd, STDIN_FILENO);
 	execute_command(cmd, envp);

@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 20:14:25 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/17 18:32:42 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/23 19:45:20 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ pid_t	execute_outfile_overwrite_process(const char *outfile_path,
 	if (pid != CHILD)
 		return (pid);
 	out_fd = _open_outfile(outfile_path);
-	close(fds[1]);
+	xclose(fds[1]);
 	xdup2(fds[0], STDIN_FILENO);
 	xdup2(out_fd, STDOUT_FILENO);
 	execute_command(cmd, envp);

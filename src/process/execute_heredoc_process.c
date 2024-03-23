@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 20:14:25 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/18 00:11:05 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/23 19:45:15 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	_write_heredoc_to_tmpfile(const char *delimiter)
 	}
 	free(tmp);
 	free(del_nl);
-	close(tmp_fd);
+	xclose(tmp_fd);
 }
 
 pid_t	execute_heredoc_process(const char *delimiter, const char *cmd,
@@ -67,7 +67,7 @@ pid_t	execute_heredoc_process(const char *delimiter, const char *cmd,
 	_write_heredoc_to_tmpfile(delimiter);
 	tmp_fd = _open_tmpfile(TMPFILE);
 	xdup2(tmp_fd, STDIN_FILENO);
-	close(fds[0]);
+	xclose(fds[0]);
 	xdup2(fds[1], STDOUT_FILENO);
 	unlink(TMPFILE);
 	execute_command(cmd, envp);
