@@ -110,6 +110,15 @@ RSpec.describe("pipex") do
         clean_outfile
       end
 
+      it "executes a simple pipex command includes special charactors" do
+        # ./pipex infile 'cat' 'echo -n \!\?\#\<\)' outfile
+        _, _, status = execute_command("./pipex #{infile_path} 'cat' 'echo -n \!\?\#\<\)' #{outfile_path}") # rubocop:disable Style/RedundantStringEscape
+
+        expect(read_outfile).to(eq("!?#<)"))
+        expect(status.exitstatus).to(eq(0))
+        clean_outfile
+      end
+
       it "executes a simple pipex command includes escaped backslash" do
         # ./pipex infile cat 'echo "back\\\\slash"' outfile
         _, _, status = execute_command("./pipex #{infile_path} 'cat' 'echo -n \"back\\\\slash\"' #{outfile_path}")
