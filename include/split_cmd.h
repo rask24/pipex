@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 22:40:27 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/15 16:54:21 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/26 17:50:02 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define SPLIT_CMD_H
 
 # include "libft.h"
+
+# define DQ_STR "\""
+# define SQ_STR "'"
 
 typedef enum e_token_type
 {
