@@ -55,6 +55,15 @@ TEST(split_cmd, commandWithSingleQuotation) {
   EXPECT_EQ(cmds[2], nullptr);
 }
 
+TEST(split_cmd, commandWithEscapedSpecialCharactors) {
+  const char *input = "grep \\(\\)\\<\\>\\`\\!\\#\\&\\|\\;\\.\\:\\'\\$\\\\";
+  char **cmds = split_cmd(input);
+
+  EXPECT_EQ(std::string(cmds[0]), std::string("grep"));
+  EXPECT_EQ(std::string(cmds[1]), std::string("()<>`!#&|;.:'$\\"));
+  EXPECT_EQ(cmds[2], nullptr);
+}
+
 TEST(split_cmd, commandWithDoubleQuotation) {
   const char *input = "grep \"message: hello\"";
   char **cmds = split_cmd(input);

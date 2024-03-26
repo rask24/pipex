@@ -60,6 +60,16 @@ TEST(create_token_list, commandWithSingleQuotation) {
   EXPECT_EQ(token_list->next->next, nullptr);
 }
 
+TEST(create_token_list, commandWithEscapedSpecialCharactors) {
+  const char *input = "grep \\(\\)\\<\\>\\`\\!\\#\\&\\|\\;\\.\\:\\'\\$\\\\";
+  t_list *token_list = create_token_list(input);
+
+  EXPECT_EQ(std::string(get_token(token_list)->content), std::string("grep"));
+  EXPECT_EQ(std::string(get_token(token_list->next)->content),
+            std::string("\\(\\)\\<\\>\\`\\!\\#\\&\\|\\;\\.\\:\\'\\$\\\\"));
+  EXPECT_EQ(token_list->next->next, nullptr);
+}
+
 TEST(create_token_list, commandWithDoubleQuotation) {
   const char *input = "grep \"message: hello\"";
   t_list *token_list = create_token_list(input);
