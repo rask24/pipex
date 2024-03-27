@@ -82,7 +82,7 @@ TEST(split_word, commandWithEscapedDoubleQuotation) {
   EXPECT_EQ(cmds[2], nullptr);
 }
 
-TEST(create_token_list, commandWithManyEscapedDoubleQuotation) {
+TEST(create_word_list, commandWithManyEscapedDoubleQuotation) {
   const char *input = "grep \"dou\\\"ble\\\"quota\\\"tion\"";
   char **cmds = split_word(input);
 
