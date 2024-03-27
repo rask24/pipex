@@ -6,13 +6,13 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:29:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/17 15:57:34 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/27 15:41:07 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "process.h"
-#include "split_cmd.h"
+#include "split_word.h"
 #include "utils.h"
 
 static void	_not_found_exit(const char *cmd_name)
@@ -43,7 +43,7 @@ void	execute_command(const char *cmd, char **envp)
 {
 	char		**cmd_list;
 
-	cmd_list = split_cmd(cmd);
+	cmd_list = split_word(cmd);
 	if (ft_strchr(cmd_list[0], '/') && access(cmd_list[0], F_OK) == SUCCESS)
 		_execute_file_path(cmd_list, envp);
 	else
