@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 17:13:41 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/26 18:02:30 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/27 15:01:19 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,27 +63,25 @@ static char	*_process_escape(char *str, bool is_dq)
 
 static void	_process_token(t_list *token_list)
 {
-	const char	*tmp;
+	char		*tmp;
 	char		*trimed;
 
 	while (token_list)
 	{
-		tmp = get_token(token_list)->content;
+		tmp = (char *)get_token(token_list)->content;
 		if (get_token(token_list)->type == TK_SINGLE_QUOTE)
 		{
-			get_token(token_list)->content = ft_strtrim(
-				get_token(token_list)->content, "\'");
-			free((char *)tmp);
+			get_token(token_list)->content = ft_strtrim(tmp, "\'");
+			free(tmp);
 		}
 		else if (get_token(token_list)->type == TK_DOUBLE_QUOTE)
 		{
-			tmp = get_token(token_list)->content;
-			trimed = ft_strtrim(get_token(token_list)->content, "\"");
+			trimed = ft_strtrim(tmp, "\"");
 			get_token(token_list)->content = _process_escape(trimed, true);
-			free((char *)tmp);
+			free(tmp);
 		}
 		else
-			get_token(token_list)->content = _process_escape((char *)tmp, false);
+			get_token(token_list)->content = _process_escape(tmp, false);
 		token_list = token_list->next;
 	}
 }
