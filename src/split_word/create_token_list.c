@@ -6,11 +6,11 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 22:54:37 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/15 17:56:49 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/27 15:40:59 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "split_cmd.h"
+#include "split_word.h"
 #include "libft.h"
 
 static size_t	_calc_token_length(const char *str)

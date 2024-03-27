@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_cmd.h                                        :+:      :+:    :+:   */
+/*   split_word.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -32,7 +32,7 @@ typedef struct s_token
 	size_t			len;
 }					t_token;
 
-char		**split_cmd(const char *cmd);
+char		**split_word(const char *cmd);
 t_token		*get_token(t_list *token_list);
 t_list		*create_token_list(const char *cmd);
 

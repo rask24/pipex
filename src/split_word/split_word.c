@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_cmd.c                                        :+:      :+:    :+:   */
+/*   split_word.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "split_cmd.h"
+#include "split_word.h"
 #include "libft.h"
 
 static char	**_generate_commands(t_list *token_list)
@@ -86,7 +86,7 @@ static void	_process_token(t_list *token_list)
 	}
 }
 
-char	**split_cmd(const char *cmd)
+char	**split_word(const char *cmd)
 {
 	t_list	*token_list;
 	char	**cmds;
