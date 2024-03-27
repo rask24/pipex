@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 22:54:37 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/27 15:59:56 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/27 16:04:50 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ static size_t	_calc_word_length(const char *str)
 	const char	*p_dq;
 
 	ret = 0;
-	if (*str == '\'')
-		return (ft_strchr(str + 1, '\'') - str + 1);
-	else if (*str == '"')
+	if (*str == CH_SINGLE_QUOTE)
+		return (ft_strchr(str + 1, CH_SINGLE_QUOTE) - str + 1);
+	else if (*str == CH_DOUBLE_QUOTE)
 	{
 		p_dq = str;
 		while (true)
 		{
-			p_dq = ft_strchr(p_dq + 1, '"');
+			p_dq = ft_strchr(p_dq + 1, CH_DOUBLE_QUOTE);
 			if (p_dq[-1] == '\\')
 				p_dq++;
 			else
@@ -40,9 +40,9 @@ static size_t	_calc_word_length(const char *str)
 
 static t_word_type	_calc_word_type(const char *str)
 {
-	if (*str == '\'')
+	if (*str == CH_SINGLE_QUOTE)
 		return (WT_SINGLE_QUOTE);
-	else if (*str == '"')
+	else if (*str == CH_DOUBLE_QUOTE)
 		return (WT_DOUBLE_QUOTE);
 	return (WT_REGULAR);
 }

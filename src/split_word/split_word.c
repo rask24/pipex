@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_word.c                                        :+:      :+:    :+:   */
+/*   split_word.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 17:13:41 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/27 15:01:19 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/27 16:12:59 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static char	**_convert_word_list_to_array(t_list *word_list)
 	i = 0;
 	while (i < list_size)
 	{
-		ret[i] = (char *)get_word(word_list)->content;
+		ret[i] = (char *)get_content(word_list)->content;
 		i++;
 		word_list = word_list->next;
 	}
@@ -68,20 +68,20 @@ static void	_process_word(t_list *word_list)
 
 	while (word_list)
 	{
-		tmp = (char *)get_word(word_list)->content;
-		if (get_word(word_list)->type == WT_SINGLE_QUOTE)
+		tmp = (char *)get_content(word_list)->content;
+		if (get_content(word_list)->type == WT_SINGLE_QUOTE)
 		{
-			get_word(word_list)->content = ft_strtrim(tmp, "\'");
+			get_content(word_list)->content = ft_strtrim(tmp, STR_SINGLE_QUOTE);
 			free(tmp);
 		}
-		else if (get_word(word_list)->type == WT_DOUBLE_QUOTE)
+		else if (get_content(word_list)->type == WT_DOUBLE_QUOTE)
 		{
-			trimed = ft_strtrim(tmp, "\"");
-			get_word(word_list)->content = _process_escape(trimed, true);
+			trimed = ft_strtrim(tmp, STR_DOUBLE_QUOTE);
+			get_content(word_list)->content = _process_escape(trimed, true);
 			free(tmp);
 		}
 		else
-			get_word(word_list)->content = _process_escape(tmp, false);
+			get_content(word_list)->content = _process_escape(tmp, false);
 		word_list = word_list->next;
 	}
 }

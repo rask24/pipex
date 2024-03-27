@@ -28,7 +28,7 @@ SRC			= $(SRC_DIR)/main.c \
 				$(SRC_DIR)/process/execute_outfile_overwrite_process.c \
 				$(SRC_DIR)/process/execute_outfile_append_process.c \
 				$(SRC_DIR)/split_word/split_word.c \
-				$(SRC_DIR)/split_word/get_word.c \
+				$(SRC_DIR)/split_word/get_content.c \
 				$(SRC_DIR)/split_word/create_word_list.c \
 				$(SRC_DIR)/wrapper/ft_xsplit.c \
 				$(SRC_DIR)/wrapper/ft_xstrjoin.c \

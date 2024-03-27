@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_word.h                                        :+:      :+:    :+:   */
+/*   split_word.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 22:40:27 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/26 17:50:02 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/03/27 16:11:56 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPLIT_CMD_H
-# define SPLIT_CMD_H
+#ifndef SPLIT_WORD_H
+# define SPLIT_WORD_H
 
 # include "libft.h"
 
-# define DQ_STR "\""
-# define SQ_STR "'"
+# define STR_DOUBLE_QUOTE "\""
+# define STR_SINGLE_QUOTE "'"
+
+# define CH_DOUBLE_QUOTE '"'
+# define CH_SINGLE_QUOTE '\''
 
 typedef enum e_word_type
 {
@@ -33,7 +36,7 @@ typedef struct s_word
 }					t_word;
 
 char		**split_word(const char *cmd);
-t_word		*get_word(t_list *word_list);
+t_word		*get_content(t_list *word_list);
 t_list		*create_word_list(const char *cmd);
 
 #endif
