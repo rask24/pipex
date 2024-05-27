@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_command.c                                  :+:      :+:    :+:   */
+/*   exec_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:29:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/27 15:41:07 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/27 22:59:13 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "process.h"
+
+#include "exec.h"
 #include "split_word.h"
 #include "utils.h"
 

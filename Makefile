@@ -19,14 +19,14 @@ LIBFT_DIR	= libft
 
 # files
 SRC			= $(SRC_DIR)/main.c \
-				$(SRC_DIR)/process/execute_command.c \
-				$(SRC_DIR)/process/resolve_command_path.c \
-				$(SRC_DIR)/process/execute_processes.c \
-				$(SRC_DIR)/process/execute_infile_process.c \
-				$(SRC_DIR)/process/execute_heredoc_process.c \
-				$(SRC_DIR)/process/execute_pipe_process.c \
-				$(SRC_DIR)/process/execute_outfile_overwrite_process.c \
-				$(SRC_DIR)/process/execute_outfile_append_process.c \
+				$(SRC_DIR)/exec/exec_command.c \
+				$(SRC_DIR)/exec/exec_processes.c \
+				$(SRC_DIR)/exec/exec_infile.c \
+				$(SRC_DIR)/exec/exec_heredoc.c \
+				$(SRC_DIR)/exec/exec_pipe.c \
+				$(SRC_DIR)/exec/exec_outfile_overwrite.c \
+				$(SRC_DIR)/exec/exec_outfile_append.c \
+				$(SRC_DIR)/exec/resolve_command_path.c \
 				$(SRC_DIR)/split_word/split_word.c \
 				$(SRC_DIR)/split_word/get_content.c \
 				$(SRC_DIR)/split_word/create_word_list.c \

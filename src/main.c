@@ -6,14 +6,14 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 14:36:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/23 19:53:29 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/27 22:48:41 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "exec.h"
 #include "pipex.h"
 #include "utils.h"
 #include "wrapper.h"
-#include "process.h"
 
 static void	_check_arguments(int argc)
 {

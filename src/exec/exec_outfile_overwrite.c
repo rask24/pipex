@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_outfile_overwrite_process.c                :+:      :+:    :+:   */
+/*   exec_outfile_overwrite.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 20:14:25 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/23 20:41:02 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/27 22:48:36 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "process.h"
+#include "exec.h"
 #include "wrapper.h"
 
 pid_t	execute_outfile_overwrite_process(const char *outfile_path,

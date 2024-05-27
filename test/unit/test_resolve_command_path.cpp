@@ -6,7 +6,7 @@
 #include "gtest/gtest.h"
 
 extern "C" {
-#include "process.h"
+#include "exec.h"
 }
 
 TEST(resolve_command_path, envNotFound) {
