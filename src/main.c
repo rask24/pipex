@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 14:36:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/27 22:48:41 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/27 23:05:43 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 static void	_check_arguments(int argc)
 {
 	if (argc < 5)
-		exit_with_message(__func__, MSG_INV_ARGS, INVALID_ARGUMENTS);
+		error_exit(__func__, MSG_INV_ARGS, INVALID_ARGUMENTS);
 }
 
 static void	_init_pipes(int ***p_fds, int argc)
