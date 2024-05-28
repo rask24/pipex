@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 14:36:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/28 19:56:08 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/28 23:54:18 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,23 @@ static void	_check_arguments(int argc)
 		error_exit(__func__, MSG_INV_ARGS, INVALID_ARGUMENTS);
 }
 
-static void	_init_pipes(int ***p_fds, int argc)
+static void	_init_pipe_fds(int ***p_pipe_fds, int argc)
 {
 	int	n;
 	int	i;
 
 	n = argc - 4;
-	*p_fds = ft_xmalloc(sizeof(int *) * n);
+	*p_pipe_fds = ft_xmalloc(sizeof(int *) * n);
 	i = 0;
 	while (i < n)
 	{
-		(*p_fds)[i] = ft_xmalloc(sizeof(int) * 2);
-		xpipe((*p_fds)[i]);
+		(*p_pipe_fds)[i] = ft_xmalloc(sizeof(int) * 2);
+		xpipe((*p_pipe_fds)[i]);
 		i++;
 	}
 }
 
-static void	_free_pipe_fds(int **fds, int argc)
+static void	_free_pipe_fds(int **pipe_fds, int argc)
 {
 	int	n;
 	int	i;
@@ -46,21 +46,21 @@ static void	_free_pipe_fds(int **fds, int argc)
 	i = 0;
 	while (i < n)
 	{
-		free(fds[i]);
+		free(pipe_fds[i]);
 		i++;
 	}
-	free(fds);
+	free(pipe_fds);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	int		**fds;
+	int		**pipe_fds;
 	int		status;
 
 	_check_arguments(argc);
-	_init_pipes(&fds, argc);
-	status = exec_all_processes(fds, argc, argv, envp);
-	_free_pipe_fds(fds, argc);
+	_init_pipe_fds(&pipe_fds, argc);
+	status = exec_all_processes(pipe_fds, argc, argv, envp);
+	_free_pipe_fds(pipe_fds, argc);
 	if (WIFEXITED(status))
 		exit(WEXITSTATUS(status));
 	return (-1);
