@@ -6,12 +6,14 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:34:07 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/28 20:42:55 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/29 00:37:48 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PROCESS_INTERNAL_H
 # define PROCESS_INTERNAL_H
+
+# include "pipex.h"
 
 # define TMPFILE ".heredoc_tmpfile"
 
@@ -31,10 +33,10 @@ typedef struct s_process
 	const char	*cmd;
 	int			*pipe_fd;
 	int			*next_pipe_fd;
-	char		**envp;
 	const char	*delimiter;
 }	t_process;
 
-pid_t	exec_single_process(t_process *pr);
+pid_t		exec_single_process(t_process *pr, char **envp);
+t_process	*init_processes(t_ctx *ctx);
 
 #endif

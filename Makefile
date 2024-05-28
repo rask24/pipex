@@ -23,6 +23,7 @@ SRC			= $(SRC_DIR)/main.c \
 				$(SRC_DIR)/exec/resolve_command_path.c \
 				$(SRC_DIR)/process/exec_all_processes.c \
 				$(SRC_DIR)/process/exec_single_process.c \
+				$(SRC_DIR)/process/init_processes.c \
 				$(SRC_DIR)/split_word/split_word.c \
 				$(SRC_DIR)/split_word/get_content.c \
 				$(SRC_DIR)/split_word/create_word_list.c \

@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:44:57 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/28 20:46:01 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/29 00:26:01 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void	_manage_redirection(t_process *pr, int file_fd)
 	}
 }
 
-pid_t	exec_single_process(t_process *pr)
+pid_t	exec_single_process(t_process *pr, char **envp)
 {
 	pid_t	pid;
 	int		file_fd;
@@ -94,6 +94,6 @@ pid_t	exec_single_process(t_process *pr)
 		return (pid);
 	file_fd = _fetch_file_fd(pr);
 	_manage_redirection(pr, file_fd);
-	execute_command(pr->cmd, pr->envp);
+	execute_command(pr->cmd, envp);
 	return (0);
 }

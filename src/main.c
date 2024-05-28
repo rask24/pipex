@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 14:36:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/29 00:06:19 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/29 02:01:01 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,41 @@ static void	_free_pipe_fds(int **pipe_fds, int argc)
 	free(pipe_fds);
 }
 
+static void	_init_ctx(t_ctx *ctx, int argc, char **argv)
+{
+	if (ft_strcmp(argv[1], "here_doc") == 0)
+		*ctx = (t_ctx)
+		{
+			.infile = NULL,
+			.outfile = argv[argc - 1],
+			.pipe_fds = _create_pipe_fds(argc),
+			.cmds = argv + 3,
+			.is_here_doc = true,
+			.delimiter = argv[2],
+			.num_cmds = argc - 4,
+		};
+	else
+		*ctx = (t_ctx)
+		{
+			.infile = argv[1],
+			.outfile = argv[argc - 1],
+			.pipe_fds = _create_pipe_fds(argc),
+			.cmds = argv + 2,
+			.is_here_doc = false,
+			.delimiter = NULL,
+			.num_cmds = argc - 3,
+		};
+}
+
 int	main(int argc, char **argv, char **envp)
 {
-	int		**pipe_fds;
+	t_ctx	ctx;
 	int		status;
 
 	_check_arguments(argc);
-	pipe_fds = _create_pipe_fds(argc);
-	status = exec_all_processes(pipe_fds, argc, argv, envp);
-	_free_pipe_fds(pipe_fds, argc);
+	_init_ctx(&ctx, argc, argv);
+	status = exec_all_processes(&ctx, envp);
+	_free_pipe_fds(ctx.pipe_fds, argc);
 	if (WIFEXITED(status))
 		exit(WEXITSTATUS(status));
 	return (-1);

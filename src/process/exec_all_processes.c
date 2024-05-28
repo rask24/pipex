@@ -6,13 +6,14 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:38:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/28 20:49:13 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/29 02:02:16 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 #include "exec.h"
+#include "pipex.h"
 #include "wrapper.h"
 
 #include "process_internal.h"
@@ -33,45 +34,23 @@ __attribute__((unused)) static void	_dev_display_pr(t_process *pr)
 	if (pr->next_pipe_fd)
 		ft_dprintf(STDERR_FILENO, "next_pipe_fd: %d, %d\n", pr->next_pipe_fd[0],
 			pr->next_pipe_fd[1]);
-	ft_dprintf(STDERR_FILENO, "envp: %p\n", pr->envp);
 	ft_dprintf(STDERR_FILENO, "delimiter: %s\n", pr->delimiter);
 }
 
-static t_process	*_init_processes(int **fds, int argc, char **argv,
-						char **envp)
-{
-	int			i;
-	t_process	*prs;
-
-	prs = ft_xmalloc(sizeof(t_process) * (argc - 3));
-	prs[0] = (t_process){MODE_INFILE, argv[1], argv[2], fds[0], NULL,
-		envp, NULL};
-	i = 0;
-	while (i < argc - 5)
-	{
-		prs[i + 1] = (t_process){MODE_PIPE, NULL, argv[3 + i], fds[i],
-			fds[i + 1], envp, NULL};
-		i++;
-	}
-	prs[i + 1] = (t_process){MODE_OUTFILE_OVERWRITE, argv[argc - 1],
-		argv[argc - 2], fds[i], NULL, envp, NULL};
-	return (prs);
-}
-
-int	exec_all_processes(int **fds, int argc, char **argv, char **envp)
+int	exec_all_processes(t_ctx *ctx, char **envp)
 {
 	pid_t		ch_pid;
 	int			status;
 	int			i;
 	t_process	*prs;
 
-	prs = _init_processes(fds, argc, argv, envp);
+	prs = init_processes(ctx);
 	i = 0;
-	while (i < argc - 3)
+	while (i < ctx->num_cmds)
 	{
-		ch_pid = exec_single_process(&prs[i]);
+		ch_pid = exec_single_process(&prs[i], envp);
 		if (i > 0)
-			_close_pipe_end(fds[i - 1]);
+			_close_pipe_end(ctx->pipe_fds[i - 1]);
 		waitpid(ch_pid, &status, 0);
 		i++;
 	}
