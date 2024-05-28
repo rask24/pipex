@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:44:57 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/29 00:26:01 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/29 02:17:43 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,14 @@ static void	_write_heredoc_to_tmpfile(const char *delimiter)
 
 static int	_fetch_file_fd(t_process *pr)
 {
+	int	fd;
+
 	if (pr->mode == MODE_HEREDOC)
 	{
 		_write_heredoc_to_tmpfile(pr->delimiter);
-		return (xopen(TMPFILE, O_RDONLY));
+		fd = xopen(TMPFILE, O_RDONLY);
+		unlink(TMPFILE);
+		return (fd);
 	}
 	else if (pr->mode == MODE_INFILE)
 		return (xopen(pr->file_path, O_RDONLY));
