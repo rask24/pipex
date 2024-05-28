@@ -6,12 +6,12 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 14:36:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/27 23:05:43 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/28 19:56:08 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
 #include "pipex.h"
+#include "process.h"
 #include "utils.h"
 #include "wrapper.h"
 
@@ -59,7 +59,7 @@ int	main(int argc, char **argv, char **envp)
 
 	_check_arguments(argc);
 	_init_pipes(&fds, argc);
-	status = execute_processes(fds, argc, argv, envp);
+	status = exec_all_processes(fds, argc, argv, envp);
 	_free_pipe_fds(fds, argc);
 	if (WIFEXITED(status))
 		exit(WEXITSTATUS(status));
