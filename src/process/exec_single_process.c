@@ -6,13 +6,12 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:44:57 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/29 02:36:03 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/29 02:48:35 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <stdbool.h>
-#include <string.h>
 #include <unistd.h>
 
 #include "exec.h"
@@ -36,7 +35,7 @@ static void	_write_heredoc_to_tmpfile(const char *delimiter)
 		tmp = get_next_line(STDIN_FILENO);
 		if (tmp == NULL || !ft_strcmp(tmp, del_nl))
 			break ;
-		write(tmp_fd, tmp, strlen(tmp));
+		write(tmp_fd, tmp, ft_strlen(tmp));
 		free(tmp);
 	}
 	free(tmp);
