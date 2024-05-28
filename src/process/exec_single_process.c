@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:44:57 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/29 02:17:43 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/29 02:23:20 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	_fetch_file_fd(t_process *pr)
 	{
 		_write_heredoc_to_tmpfile(pr->delimiter);
 		fd = xopen(TMPFILE, O_RDONLY);
-		unlink(TMPFILE);
+		xunlink(TMPFILE);
 		return (fd);
 	}
 	else if (pr->mode == MODE_INFILE)
