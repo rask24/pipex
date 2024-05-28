@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 14:36:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/28 23:54:18 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/29 00:06:19 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,20 +21,22 @@ static void	_check_arguments(int argc)
 		error_exit(__func__, MSG_INV_ARGS, INVALID_ARGUMENTS);
 }
 
-static void	_init_pipe_fds(int ***p_pipe_fds, int argc)
+static int	**_create_pipe_fds(int argc)
 {
-	int	n;
+	int	num_fds;
 	int	i;
+	int	**pipe_fds;
 
-	n = argc - 4;
-	*p_pipe_fds = ft_xmalloc(sizeof(int *) * n);
+	num_fds = argc - 4;
+	pipe_fds = ft_xmalloc(sizeof(int *) * num_fds);
 	i = 0;
-	while (i < n)
+	while (i < num_fds)
 	{
-		(*p_pipe_fds)[i] = ft_xmalloc(sizeof(int) * 2);
-		xpipe((*p_pipe_fds)[i]);
+		pipe_fds[i] = ft_xmalloc(sizeof(int) * 2);
+		xpipe((pipe_fds)[i]);
 		i++;
 	}
+	return (pipe_fds);
 }
 
 static void	_free_pipe_fds(int **pipe_fds, int argc)
@@ -58,7 +60,7 @@ int	main(int argc, char **argv, char **envp)
 	int		status;
 
 	_check_arguments(argc);
-	_init_pipe_fds(&pipe_fds, argc);
+	pipe_fds = _create_pipe_fds(argc);
 	status = exec_all_processes(pipe_fds, argc, argv, envp);
 	_free_pipe_fds(pipe_fds, argc);
 	if (WIFEXITED(status))
