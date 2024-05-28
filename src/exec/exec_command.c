@@ -6,15 +6,19 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:29:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/27 23:05:43 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/29 02:32:21 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <string.h>
 
+#include "constants.h"
 #include "exec.h"
+#include "libft.h"
 #include "split_word.h"
 #include "utils.h"
+
+#include "exec_internal.h"
 
 static void	_not_found_exit(const char *cmd_name)
 {

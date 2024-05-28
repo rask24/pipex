@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   xclose.c                                           :+:      :+:    :+:   */
+/*   exec_internal.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/23 19:33:51 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/29 02:39:30 by reasuke          ###   ########.fr       */
+/*   Created: 2024/05/29 02:25:26 by reasuke           #+#    #+#             */
+/*   Updated: 2024/05/29 02:26:09 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <errno.h>
-#include <string.h>
-#include <unistd.h>
+#ifndef EXEC_INTERNAL_H
+# define EXEC_INTERNAL_H
 
-#include "constants.h"
-#include "utils.h"
-#include "wrapper.h"
+const char	*resolve_command_path(const char *cmd_name, char **envp);
 
-int	xclose(int fd)
-{
-	int	ret;
-
-	ret = close(fd);
-	if (ret == FAILURE)
-		error_exit(__func__, strerror(errno), FUNCTION_FAIL);
-	return (ret);
-}
+#endif

@@ -6,12 +6,12 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 17:13:41 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/27 16:12:59 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/29 02:33:22 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "split_word.h"
 #include "libft.h"
+#include "split_word.h"
 
 static char	**_convert_word_list_to_array(t_list *word_list)
 {

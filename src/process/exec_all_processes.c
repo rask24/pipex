@@ -6,13 +6,12 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:38:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/29 02:10:50 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/29 02:32:42 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
 #include "exec.h"
+#include "libft.h"
 #include "pipex.h"
 #include "wrapper.h"
 

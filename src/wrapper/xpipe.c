@@ -6,10 +6,16 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 19:14:37 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/27 23:05:43 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/29 02:40:07 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <errno.h>
+#include <string.h>
+#include <unistd.h>
+
+#include "constants.h"
+#include "utils.h"
 #include "wrapper.h"
 
 int	xpipe(int fds[2])

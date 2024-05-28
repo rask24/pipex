@@ -6,13 +6,12 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 15:33:16 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/27 22:59:32 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/29 02:34:48 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "constants.h"
 #include "libft.h"
-
-#include "exec.h"
 #include "wrapper.h"
 
 static const char	*_extract_path_env(char **envp)

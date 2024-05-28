@@ -6,16 +6,18 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:44:57 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/29 02:23:20 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/29 02:36:03 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <stdbool.h>
+#include <string.h>
 #include <unistd.h>
 
 #include "exec.h"
 #include "constants.h"
+#include "libft.h"
 #include "wrapper.h"
 
 #include "process_internal.h"
