@@ -19,14 +19,11 @@ LIBFT_DIR	= libft
 
 # files
 SRC			= $(SRC_DIR)/main.c \
-				$(SRC_DIR)/process/execute_command.c \
-				$(SRC_DIR)/process/resolve_command_path.c \
-				$(SRC_DIR)/process/execute_processes.c \
-				$(SRC_DIR)/process/execute_infile_process.c \
-				$(SRC_DIR)/process/execute_heredoc_process.c \
-				$(SRC_DIR)/process/execute_pipe_process.c \
-				$(SRC_DIR)/process/execute_outfile_overwrite_process.c \
-				$(SRC_DIR)/process/execute_outfile_append_process.c \
+				$(SRC_DIR)/exec/exec_command.c \
+				$(SRC_DIR)/exec/resolve_command_path.c \
+				$(SRC_DIR)/process/exec_all_processes.c \
+				$(SRC_DIR)/process/exec_single_process.c \
+				$(SRC_DIR)/process/init_processes.c \
 				$(SRC_DIR)/split_word/split_word.c \
 				$(SRC_DIR)/split_word/get_content.c \
 				$(SRC_DIR)/split_word/create_word_list.c \
@@ -38,7 +35,8 @@ SRC			= $(SRC_DIR)/main.c \
 				$(SRC_DIR)/wrapper/xpipe.c \
 				$(SRC_DIR)/wrapper/xdup2.c \
 				$(SRC_DIR)/wrapper/xfork.c \
-				$(SRC_DIR)/utils/exit_with_message.c
+				$(SRC_DIR)/wrapper/xunlink.c \
+				$(SRC_DIR)/utils/error_exit.c
 OBJ			= $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRC))
 DEP			= $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.d, $(SRC))
 HEADER		= $(wildcard $(INC_DIR)/*.h)

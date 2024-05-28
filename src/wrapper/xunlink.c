@@ -1,19 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_with_message.c                                :+:      :+:    :+:   */
+/*   xunlink.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/25 19:03:12 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/02 15:07:04 by reasuke          ###   ########.fr       */
+/*   Created: 2024/02/25 19:20:08 by reasuke           #+#    #+#             */
+/*   Updated: 2024/05/29 02:41:07 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include <errno.h>
+#include <string.h>
+#include <unistd.h>
 
-void	exit_with_message(const char *func, const char *msg, int status)
+#include "constants.h"
+#include "utils.h"
+#include "wrapper.h"
+
+int	xunlink(const char *path)
 {
-	ft_dprintf(STDERR_FILENO, "pipex: %s: %s\n", func, msg);
-	exit(status);
+	int	ret;
+
+	ret = unlink(path);
+	if (ret == FAILURE)
+		error_exit(__func__, strerror(errno), FUNCTION_FAIL);
+	return (ret);
 }

@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_command.c                                  :+:      :+:    :+:   */
+/*   exec_command.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:29:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/27 15:41:07 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/29 02:32:21 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <string.h>
+
+#include "constants.h"
+#include "exec.h"
 #include "libft.h"
-#include "process.h"
 #include "split_word.h"
 #include "utils.h"
+
+#include "exec_internal.h"
 
 static void	_not_found_exit(const char *cmd_name)
 {
@@ -26,7 +31,7 @@ static void	_execute_file_path(char **cmd_list, char **envp)
 {
 	if (access(cmd_list[0], X_OK) == SUCCESS)
 		execve(cmd_list[0], cmd_list, envp);
-	exit_with_message(cmd_list[0], strerror(errno), NOT_EXECUTABLE);
+	error_exit(cmd_list[0], strerror(errno), NOT_EXECUTABLE);
 }
 
 static void	_execute_env_path(char **cmd_list, char **envp)

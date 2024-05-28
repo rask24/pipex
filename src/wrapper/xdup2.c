@@ -6,10 +6,16 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 19:21:06 by reasuke           #+#    #+#             */
-/*   Updated: 2024/03/15 16:35:51 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/29 02:40:36 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <errno.h>
+#include <string.h>
+#include <unistd.h>
+
+#include "constants.h"
+#include "utils.h"
 #include "wrapper.h"
 
 int	xdup2(int fd1, int fd2)
@@ -18,6 +24,6 @@ int	xdup2(int fd1, int fd2)
 
 	ret = dup2(fd1, fd2);
 	if (ret == FAILURE)
-		exit_with_message(__func__, strerror(errno), FUNCTION_FAIL);
+		error_exit(__func__, strerror(errno), FUNCTION_FAIL);
 	return (ret);
 }
