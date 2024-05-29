@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/29 19:59:28 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/29 20:07:35 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/29 20:15:21 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static char	*_create_error_message(const char *cmd_name)
 	size_t	len;
 	char	*err_msg;
 
-	len = ft_strlen(PROG_NAME) + ft_strlen(": ") + ft_strlen(cmd_name) +
-			ft_strlen(NOT_FOUND_MSG);
+	len = ft_strlen(PROG_NAME) + ft_strlen(": ") + ft_strlen(cmd_name)
+		+ ft_strlen(NOT_FOUND_MSG);
 	err_msg = ft_xmalloc(len + 1);
 	err_msg[0] = '\0';
 	append_str(&err_msg, PROG_NAME);

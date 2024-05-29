@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 19:03:12 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/29 20:11:19 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/29 20:14:56 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static char	*_create_error_message(const char *func, const char *msg)
 	char	*err_msg;
 	size_t	len;
 
-	len = ft_strlen(PROG_NAME) + ft_strlen(": ") + ft_strlen(func) +
-			ft_strlen(": ") + ft_strlen(msg);
+	len = ft_strlen(PROG_NAME) + ft_strlen(": ") + ft_strlen(func)
+		+ ft_strlen(": ") + ft_strlen(msg);
 	err_msg = ft_xmalloc(len + 1);
 	append_str(&err_msg, PROG_NAME);
 	append_str(&err_msg, ": ");
