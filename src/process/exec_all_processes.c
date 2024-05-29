@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:38:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/29 02:32:42 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/29 17:28:56 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,23 +37,22 @@ __attribute__((unused)) static void	_dev_display_pr(t_process *pr)
 	ft_dprintf(STDERR_FILENO, "delimiter: %s\n", pr->delimiter);
 }
 
-int	exec_all_processes(t_ctx *ctx, char **envp)
+pid_t	*exec_all_processes(t_ctx *ctx, char **envp)
 {
-	pid_t		ch_pid;
-	int			status;
 	int			i;
 	t_process	*prs;
+	pid_t		*ch_pids;
 
 	prs = init_processes(ctx);
+	ch_pids = ft_xmalloc(sizeof(pid_t) * ctx->num_cmds);
 	i = 0;
 	while (i < ctx->num_cmds)
 	{
-		ch_pid = exec_single_process(&prs[i], envp);
+		ch_pids[i] = exec_single_process(&prs[i], envp);
 		if (i > 0)
 			_close_pipe_end(ctx->pipe_fds[i - 1]);
-		waitpid(ch_pid, &status, 0);
 		i++;
 	}
 	free(prs);
-	return (status);
+	return (ch_pids);
 }
