@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:29:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/29 02:32:21 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/29 20:00:53 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,6 @@
 #include "utils.h"
 
 #include "exec_internal.h"
-
-static void	_not_found_exit(const char *cmd_name)
-{
-	ft_dprintf(STDERR_FILENO, "%s: %s: command not found\n", PROG_NAME,
-		cmd_name);
-	exit(NOT_FOUND);
-}
 
 static void	_execute_file_path(char **cmd_list, char **envp)
 {
@@ -40,7 +33,7 @@ static void	_execute_env_path(char **cmd_list, char **envp)
 
 	exec_path = resolve_command_path(cmd_list[0], envp);
 	if (!exec_path)
-		_not_found_exit(cmd_list[0]);
+		not_found_exit(cmd_list[0]);
 	execve(exec_path, cmd_list, envp);
 }
 
