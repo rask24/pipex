@@ -194,15 +194,20 @@ RSpec.describe("pipex") do
         # ./pipex infile a b c d outfile
         _, stderr, status = execute_command("./pipex #{infile_path} a b c d e f g #{outfile_path}")
 
-        expected = ""
-        expected += "pipex: a: command not found\n"
-        expected += "pipex: b: command not found\n"
-        expected += "pipex: c: command not found\n"
-        expected += "pipex: d: command not found\n"
-        expected += "pipex: e: command not found\n"
-        expected += "pipex: f: command not found\n"
-        expected += "pipex: g: command not found\n"
-        expect(stderr).to(eq(expected))
+        expected_errors = [
+          "pipex: a: command not found\n",
+          "pipex: b: command not found\n",
+          "pipex: c: command not found\n",
+          "pipex: d: command not found\n",
+          "pipex: e: command not found\n",
+          "pipex: f: command not found\n",
+          "pipex: g: command not found\n",
+        ]
+
+        expected_errors.each do |error_message|
+          expect(stderr).to(include(error_message))
+        end
+
         expect(status.exitstatus).to(eq(127))
         clean_outfile
       end

@@ -1,32 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   constants.h                                        :+:      :+:    :+:   */
+/*   append_str.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/02 15:08:32 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/29 20:07:15 by reasuke          ###   ########.fr       */
+/*   Created: 2024/05/29 20:02:39 by reasuke           #+#    #+#             */
+/*   Updated: 2024/05/29 20:06:19 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CONSTANTS_H
-# define CONSTANTS_H
+#include "libft.h"
 
-# define PROG_NAME "pipex"
-
-# define CHILD 0
-
-# define SUCCESS 0
-# define FAILURE -1
-
-# define MSG_INV_ARGS "Invalid number of arguments: at least 4 required."
-
-# define NOT_FOUND_MSG ": command not found\n"
-
-# define INVALID_ARGUMENTS 1
-# define FUNCTION_FAIL     2
-# define NOT_EXECUTABLE    126
-# define NOT_FOUND         127
-
-#endif
+void	append_str(char **dst, const char *src)
+{
+	ft_strlcat(*dst, src, ft_strlen(*dst) + ft_strlen(src) + 1);
+}

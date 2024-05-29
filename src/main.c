@@ -6,9 +6,11 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 14:36:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/29 02:34:38 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/29 19:53:13 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <sys/wait.h>
 
 #include "constants.h"
 #include "libft.h"
@@ -85,13 +87,23 @@ static void	_init_ctx(t_ctx *ctx, int argc, char **argv)
 int	main(int argc, char **argv, char **envp)
 {
 	t_ctx	ctx;
-	int		status;
+	int		stat;
+	pid_t	*ch_pids;
+	int		i;
 
 	_check_arguments(argc);
 	_init_ctx(&ctx, argc, argv);
-	status = exec_all_processes(&ctx, envp);
+	ch_pids = exec_all_processes(&ctx, envp);
 	_free_pipe_fds(ctx.pipe_fds, argc);
-	if (WIFEXITED(status))
-		exit(WEXITSTATUS(status));
-	return (-1);
+	i = 0;
+	while (i < ctx.num_cmds)
+	{
+		waitpid(ch_pids[i], &stat, 0);
+		i++;
+	}
+	free(ch_pids);
+	if (WIFEXITED(stat))
+		exit(WEXITSTATUS(stat));
+	else
+		exit(FAILURE);
 }
