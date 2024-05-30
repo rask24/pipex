@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 14:36:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/30 14:49:57 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/30 16:28:44 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,12 @@ static int	**_create_pipe_fds(int num_pipes)
 	return (pipe_fds);
 }
 
-static void	_free_pipe_fds(int **pipe_fds, int argc)
+static void	_free_pipe_fds(int **pipe_fds, int num_pipes)
 {
-	int	n;
 	int	i;
 
-	n = argc - 4;
 	i = 0;
-	while (i < n)
+	while (i < num_pipes)
 	{
 		free(pipe_fds[i]);
 		i++;
@@ -92,7 +90,7 @@ int	main(int argc, char **argv, char **envp)
 	_check_arguments(argc, argv);
 	_init_ctx(&ctx, argc, argv);
 	ch_pids = exec_all_processes(&ctx, envp);
-	_free_pipe_fds(ctx.pipe_fds, argc);
+	_free_pipe_fds(ctx.pipe_fds, ctx.num_cmds - 1);
 	i = 0;
 	while (i < ctx.num_cmds)
 	{
