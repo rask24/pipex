@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 14:36:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/30 14:40:17 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/30 14:49:57 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 #include "utils.h"
 #include "wrapper.h"
 
-static void	_check_arguments(int argc)
+static void	_check_arguments(int argc, char **argv)
 {
-	if (argc < 5)
-		error_exit(__func__, MSG_INV_ARGS, INVALID_ARGUMENTS);
+	if (argc < 5 || (ft_strcmp(argv[1], "here_doc") == 0 && argc < 6))
+		usage_error_exit();
 }
 
 static int	**_create_pipe_fds(int num_pipes)
@@ -89,7 +89,7 @@ int	main(int argc, char **argv, char **envp)
 	pid_t	*ch_pids;
 	int		i;
 
-	_check_arguments(argc);
+	_check_arguments(argc, argv);
 	_init_ctx(&ctx, argc, argv);
 	ch_pids = exec_all_processes(&ctx, envp);
 	_free_pipe_fds(ctx.pipe_fds, argc);
