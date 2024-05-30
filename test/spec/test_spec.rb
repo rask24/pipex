@@ -150,66 +150,94 @@ RSpec.describe("pipex") do
     end
 
     context "with errors" do
-      it "reports error for first command not found" do
-        # ./pipex infile 'ccc' 'cat -e' outfile
-        _, stderr, status = execute_command("./pipex #{infile_path} 'ccc' 'cat -e' #{outfile_path}")
+      context "on check_arguments" do
+        it "reports usage error for invalid number of arguments" do
+          # ./pipex
+          _, _, status = execute_command("./pipex")
 
-        expect(read_outfile).to(eq(""))
-        expect(stderr).to(eq("pipex: ccc: command not found\n"))
-        expect(status.exitstatus).to(eq(0))
-        clean_outfile
-      end
-
-      it "reports error and exits with 127 for second command not found" do
-        # ./pipex infile 'cat' 'ccc -e' outfile
-        _, stderr, status = execute_command("./pipex #{infile_path} 'cat' 'ccc -e' #{outfile_path}")
-
-        expect(read_outfile).to(eq(""))
-        expect(stderr).to(include("pipex: ccc: command not found\n"))
-        expect(status.exitstatus).to(eq(127))
-        clean_outfile
-      end
-
-      it "handles not permitted script as first command" do
-        # ./pipex infile ./test/spec/fixuture/not_permitted_cat.sh 'cat -e' outfile
-        _, stderr, status =
-          execute_command("./pipex #{infile_path} ./test/spec/fixture/not_permitted_cat.sh 'cat -e' #{outfile_path}")
-
-        expect(stderr).to(eq("pipex: ./test/spec/fixture/not_permitted_cat.sh: Permission denied\n"))
-        expect(status.exitstatus).to(eq(0))
-        clean_outfile
-      end
-
-      it "handles not permitted script as second command" do
-        # ./pipex infile cat ./test/spce/fixture/not_permitted_cat.sh outfile
-        _, stderr, status =
-          execute_command("./pipex #{infile_path} cat ./test/spec/fixture/not_permitted_cat.sh #{outfile_path}")
-
-        expect(stderr).to(eq("pipex: ./test/spec/fixture/not_permitted_cat.sh: Permission denied\n"))
-        expect(status.exitstatus).to(eq(126))
-        clean_outfile
-      end
-
-      it "reports error for each command" do
-        # ./pipex infile a b c d outfile
-        _, stderr, status = execute_command("./pipex #{infile_path} a b c d e f g #{outfile_path}")
-
-        expected_errors = [
-          "pipex: a: command not found\n",
-          "pipex: b: command not found\n",
-          "pipex: c: command not found\n",
-          "pipex: d: command not found\n",
-          "pipex: e: command not found\n",
-          "pipex: f: command not found\n",
-          "pipex: g: command not found\n",
-        ]
-
-        expected_errors.each do |error_message|
-          expect(stderr).to(include(error_message))
+          expect(status.exitstatus).to(eq(1))
+          clean_outfile
         end
 
-        expect(status.exitstatus).to(eq(127))
-        clean_outfile
+        it "reports file input and output usage error for invalid number of arguments" do
+          # ./pipex infile cat outfile
+          _, _, status = execute_command("./pipex #{infile_path} cat #{outfile_path}")
+
+          expect(status.exitstatus).to(eq(1))
+          clean_outfile
+        end
+
+        it "reports here_doc usage error for invalid number of arguments" do
+          # ./pipex here_doc END cat cat
+          _, _, status = execute_command("./pipex here_doc END cat cat")
+
+          expect(status.exitstatus).to(eq(1))
+          clean_outfile
+        end
+      end
+
+      context "on exec" do
+        it "reports error for first command not found" do
+          # ./pipex infile 'ccc' 'cat -e' outfile
+          _, stderr, status = execute_command("./pipex #{infile_path} 'ccc' 'cat -e' #{outfile_path}")
+
+          expect(read_outfile).to(eq(""))
+          expect(stderr).to(eq("pipex: ccc: command not found\n"))
+          expect(status.exitstatus).to(eq(0))
+          clean_outfile
+        end
+
+        it "reports error and exits with 127 for second command not found" do
+          # ./pipex infile 'cat' 'ccc -e' outfile
+          _, stderr, status = execute_command("./pipex #{infile_path} 'cat' 'ccc -e' #{outfile_path}")
+
+          expect(read_outfile).to(eq(""))
+          expect(stderr).to(include("pipex: ccc: command not found\n"))
+          expect(status.exitstatus).to(eq(127))
+          clean_outfile
+        end
+
+        it "handles not permitted script as first command" do
+          # ./pipex infile ./test/spec/fixuture/not_permitted_cat.sh 'cat -e' outfile
+          _, stderr, status =
+            execute_command("./pipex #{infile_path} ./test/spec/fixture/not_permitted_cat.sh 'cat -e' #{outfile_path}")
+
+          expect(stderr).to(eq("pipex: ./test/spec/fixture/not_permitted_cat.sh: Permission denied\n"))
+          expect(status.exitstatus).to(eq(0))
+          clean_outfile
+        end
+
+        it "handles not permitted script as second command" do
+          # ./pipex infile cat ./test/spce/fixture/not_permitted_cat.sh outfile
+          _, stderr, status =
+            execute_command("./pipex #{infile_path} cat ./test/spec/fixture/not_permitted_cat.sh #{outfile_path}")
+
+          expect(stderr).to(eq("pipex: ./test/spec/fixture/not_permitted_cat.sh: Permission denied\n"))
+          expect(status.exitstatus).to(eq(126))
+          clean_outfile
+        end
+
+        it "reports error for each command" do
+          # ./pipex infile a b c d outfile
+          _, stderr, status = execute_command("./pipex #{infile_path} a b c d e f g #{outfile_path}")
+
+          expected_errors = [
+            "pipex: a: command not found\n",
+            "pipex: b: command not found\n",
+            "pipex: c: command not found\n",
+            "pipex: d: command not found\n",
+            "pipex: e: command not found\n",
+            "pipex: f: command not found\n",
+            "pipex: g: command not found\n",
+          ]
+
+          expected_errors.each do |error_message|
+            expect(stderr).to(include(error_message))
+          end
+
+          expect(status.exitstatus).to(eq(127))
+          clean_outfile
+        end
       end
     end
   end
