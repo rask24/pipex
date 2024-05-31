@@ -16,7 +16,7 @@ OBJ_EXCLUDE_MAIN= $(filter-out $(BUILD_DIR)/main.o, $(OBJ))
 # test files
 TEST_SRC		= $(TEST_DIR)/test_resolve_command_path.cpp \
 					$(TEST_DIR)/test_create_word_list.cpp \
-					$(TEST_DIR)/test_split_word.cpp
+					$(TEST_DIR)/test_parse_commnad.cpp
 TEST_OBJ		= $(patsubst $(TEST_DIR)/%.cpp, $(TEST_BUILD_DIR)/%.o, $(TEST_SRC))
 GTEST_SRC		= $(GTEST_DIR)/gtest_main.cc $(GTEST_DIR)/gtest-all.cc
 GTEST_OBJ		= $(patsubst $(GTEST_DIR)/%.cc, $(TEST_BUILD_DIR)/%.o, $(GTEST_SRC))

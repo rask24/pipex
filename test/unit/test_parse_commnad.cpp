@@ -7,29 +7,29 @@
 #include "gtest/gtest.h"
 
 extern "C" {
-#include "split_word.h"
+#include "parse_command.h"
 }
 
-TEST(split_word, commandOnly) {
+TEST(parse_command, commandOnly) {
   const char *input = "cat";
-  char **cmds = split_word(input);
+  char **cmds = parse_command(input);
 
   EXPECT_EQ(std::string(cmds[0]), std::string("cat"));
   EXPECT_EQ(cmds[1], nullptr);
 }
 
-TEST(split_word, commandWithOneOption) {
+TEST(parse_command, commandWithOneOption) {
   const char *input = "cat -e";
-  char **cmds = split_word(input);
+  char **cmds = parse_command(input);
 
   EXPECT_EQ(std::string(cmds[0]), std::string("cat"));
   EXPECT_EQ(std::string(cmds[1]), std::string("-e"));
   EXPECT_EQ(cmds[2], nullptr);
 }
 
-TEST(split_word, commandWithTwoOptions) {
+TEST(parse_command, commandWithTwoOptions) {
   const char *input = "grep -rn hello";
-  char **cmds = split_word(input);
+  char **cmds = parse_command(input);
 
   EXPECT_EQ(std::string(cmds[0]), std::string("grep"));
   EXPECT_EQ(std::string(cmds[1]), std::string("-rn"));
@@ -37,45 +37,45 @@ TEST(split_word, commandWithTwoOptions) {
   EXPECT_EQ(cmds[3], nullptr);
 }
 
-TEST(split_word, commandWithDelimitedByTab) {
+TEST(parse_command, commandWithDelimitedByTab) {
   const char *input = "cat\t-e";
-  char **cmds = split_word(input);
+  char **cmds = parse_command(input);
 
   EXPECT_EQ(std::string(cmds[0]), std::string("cat"));
   EXPECT_EQ(std::string(cmds[1]), std::string("-e"));
   EXPECT_EQ(cmds[2], nullptr);
 }
 
-TEST(split_word, commandWithSingleQuotation) {
+TEST(parse_command, commandWithSingleQuotation) {
   const char *input = "grep 'message: hello'";
-  char **cmds = split_word(input);
+  char **cmds = parse_command(input);
 
   EXPECT_EQ(std::string(cmds[0]), std::string("grep"));
   EXPECT_EQ(std::string(cmds[1]), std::string("message: hello"));
   EXPECT_EQ(cmds[2], nullptr);
 }
 
-TEST(split_word, commandWithEscapedSpecialCharactors) {
+TEST(parse_command, commandWithEscapedSpecialCharactors) {
   const char *input = "grep \\(\\)\\<\\>\\`\\!\\#\\&\\|\\;\\.\\:\\'\\$\\\\";
-  char **cmds = split_word(input);
+  char **cmds = parse_command(input);
 
   EXPECT_EQ(std::string(cmds[0]), std::string("grep"));
   EXPECT_EQ(std::string(cmds[1]), std::string("()<>`!#&|;.:'$\\"));
   EXPECT_EQ(cmds[2], nullptr);
 }
 
-TEST(split_word, commandWithDoubleQuotation) {
+TEST(parse_command, commandWithDoubleQuotation) {
   const char *input = "grep \"message: hello\"";
-  char **cmds = split_word(input);
+  char **cmds = parse_command(input);
 
   EXPECT_EQ(std::string(cmds[0]), std::string("grep"));
   EXPECT_EQ(std::string(cmds[1]), std::string("message: hello"));
   EXPECT_EQ(cmds[2], nullptr);
 }
 
-TEST(split_word, commandWithEscapedDoubleQuotation) {
+TEST(parse_command, commandWithEscapedDoubleQuotation) {
   const char *input = "grep \"double\\\"quotation\"";
-  char **cmds = split_word(input);
+  char **cmds = parse_command(input);
 
   EXPECT_EQ(std::string(cmds[0]), std::string("grep"));
   EXPECT_EQ(std::string(cmds[1]), std::string("double\"quotation"));
@@ -84,25 +84,25 @@ TEST(split_word, commandWithEscapedDoubleQuotation) {
 
 TEST(create_word_list, commandWithManyEscapedDoubleQuotation) {
   const char *input = "grep \"dou\\\"ble\\\"quota\\\"tion\"";
-  char **cmds = split_word(input);
+  char **cmds = parse_command(input);
 
   EXPECT_EQ(std::string(cmds[0]), std::string("grep"));
   EXPECT_EQ(std::string(cmds[1]), std::string("dou\"ble\"quota\"tion"));
   EXPECT_EQ(cmds[2], nullptr);
 }
 
-TEST(split_word, commandWithEscapedBackSlash) {
+TEST(parse_command, commandWithEscapedBackSlash) {
   const char *input = "grep \"back\\\\slash\"";
-  char **cmds = split_word(input);
+  char **cmds = parse_command(input);
 
   EXPECT_EQ(std::string(cmds[0]), std::string("grep"));
   EXPECT_EQ(std::string(cmds[1]), std::string("back\\slash"));
   EXPECT_EQ(cmds[2], nullptr);
 }
 
-TEST(split_word, commandWithManyEscapedBackSlash) {
+TEST(parse_command, commandWithManyEscapedBackSlash) {
   const char *input = "grep \"ba\\\\ck\\\\sla\\\\sh\"";
-  char **cmds = split_word(input);
+  char **cmds = parse_command(input);
 
   EXPECT_EQ(std::string(cmds[0]), std::string("grep"));
   EXPECT_EQ(std::string(cmds[1]), std::string("ba\\ck\\sla\\sh"));

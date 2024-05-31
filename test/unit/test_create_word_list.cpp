@@ -7,7 +7,7 @@
 #include "gtest/gtest.h"
 
 extern "C" {
-#include "split_word.h"
+#include "../../src/parse_command/parse_command_internal.h"
 }
 
 TEST(create_word_list, commandOnly) {

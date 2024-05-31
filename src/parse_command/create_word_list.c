@@ -6,14 +6,13 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 22:54:37 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/31 13:24:15 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/31 13:59:55 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "split_word.h"
 
-#include "split_word_internal.h"
+#include "parse_command_internal.h"
 
 static size_t	_calc_word_length(const char *str)
 {

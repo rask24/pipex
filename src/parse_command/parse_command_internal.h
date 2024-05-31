@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_word_internal.h                              :+:      :+:    :+:   */
+/*   parse_command_internal.h                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 13:22:18 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/31 13:23:11 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/31 14:06:20 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPLIT_WORD_INTERNAL_H
-# define SPLIT_WORD_INTERNAL_H
+#ifndef PARSE_COMMAND_INTERNAL_H
+# define PARSE_COMMAND_INTERNAL_H
 
 # include "libft.h"
 

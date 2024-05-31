@@ -6,14 +6,14 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 22:49:17 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/31 13:23:59 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/31 13:59:37 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "split_word.h"
+#include "parse_command.h"
 
-#include "split_word_internal.h"
+#include "parse_command_internal.h"
 
 t_word	*get_content(t_list *word_list)
 {

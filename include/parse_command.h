@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_word.h                                       :+:      :+:    :+:   */
+/*   parse_command.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 22:40:27 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/31 13:23:04 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/31 14:07:02 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SPLIT_WORD_H
-# define SPLIT_WORD_H
+#ifndef PARSE_COMMAND_H
+# define PARSE_COMMAND_H
 
-char		**split_word(const char *cmd);
+char	**parse_command(const char *cmd);
 
 #endif
