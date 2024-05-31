@@ -6,11 +6,13 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:29:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/31 14:00:59 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/31 14:49:18 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <errno.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "constants.h"
 #include "exec.h"

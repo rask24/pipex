@@ -6,12 +6,14 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:34:07 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/29 00:37:48 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/31 14:50:09 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PROCESS_INTERNAL_H
 # define PROCESS_INTERNAL_H
+
+# include <unistd.h>
 
 # include "pipex.h"
 

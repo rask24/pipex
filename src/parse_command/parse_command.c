@@ -6,9 +6,11 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 17:13:41 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/31 14:01:26 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/31 14:50:43 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stdlib.h>
 
 #include "libft.h"
 
@@ -89,12 +91,12 @@ static void	_process_word(t_list *word_list)
 
 char	**parse_command(const char *cmd)
 {
-	t_list	*word_list;
+	t_list	*cmd_list;
 	char	**cmds;
 
-	word_list = create_word_list(cmd);
-	_process_word(word_list);
-	cmds = _convert_word_list_to_array(word_list);
-	ft_lstclear(&word_list, free);
+	cmd_list = create_word_list(cmd);
+	_process_word(cmd_list);
+	cmds = _convert_word_list_to_array(cmd_list);
+	ft_lstclear(&cmd_list, free);
 	return (cmds);
 }

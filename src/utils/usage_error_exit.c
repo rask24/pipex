@@ -6,9 +6,12 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 14:45:07 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/30 15:30:47 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/31 14:51:09 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stdlib.h>
+#include <unistd.h>
 
 #include "constants.h"
 #include "libft.h"
