@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_command_internal.h                           :+:      :+:    :+:   */
+/*   clean_tokens.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/31 13:22:18 by reasuke           #+#    #+#             */
-/*   Updated: 2024/06/02 20:33:20 by reasuke          ###   ########.fr       */
+/*   Created: 2024/06/02 20:31:59 by reasuke           #+#    #+#             */
+/*   Updated: 2024/06/02 20:47:48 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSE_COMMAND_INTERNAL_H
-# define PARSE_COMMAND_INTERNAL_H
+#include "libft.h"
 
-# include "libft.h"
+// TODO: replace ft_strdup with the function that handles escaping
+t_list	*clean_tokens(t_list *tokens)
+{
+	t_list	*cleaned_tokens;
+	t_list	*cur;
 
-t_list	*tokenize_command(const char *cmd);
-t_list	*clean_tokens(t_list *tokens);
-
-#endif
+	cleaned_tokens = NULL;
+	cur = tokens;
+	while (cur)
+	{
+		if (cur->content)
+			ft_lstadd_back(&cleaned_tokens, ft_lstnew(ft_strdup(cur->content)));
+		cur = cur->next;
+	}
+	return (cleaned_tokens);
+}
