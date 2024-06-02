@@ -27,6 +27,7 @@ SRC			= $(SRC_DIR)/main.c \
 				$(SRC_DIR)/parse_command/parse_command.c \
 				$(SRC_DIR)/parse_command/get_content.c \
 				$(SRC_DIR)/parse_command/create_word_list.c \
+				$(SRC_DIR)/parse_command/tokenize_command.c \
 				$(SRC_DIR)/wrapper/ft_xsplit.c \
 				$(SRC_DIR)/wrapper/ft_xstrjoin.c \
 				$(SRC_DIR)/wrapper/xopen.c \
