@@ -141,7 +141,7 @@ TEST(clean_tokens, commandWithDoubleQuotationInSingleQuotation) {
 
   EXPECT_EQ(std::string((char *)cleaned_tokens->content), std::string("grep"));
   EXPECT_EQ(std::string((char *)cleaned_tokens->next->content),
-            std::string("'essage: \"hello\""));
+            std::string("message: \"hello\""));
   EXPECT_EQ(cleaned_tokens->next->next, nullptr);
 }
 
@@ -157,6 +157,31 @@ TEST(clean_tokens, commandWithEscapedDoubleQuotation) {
   EXPECT_EQ(cleaned_tokens->next->next, nullptr);
 }
 
+TEST(clean_tokens, commandWithEscapedDoubleQuotationAndBackslash) {
+  // echo "\\:\ :\":\a"
+  // \:\ :":\a
+  const char *input = "echo \"\\\\:\\ :\\\":\\a\"";
+  t_list *tokens = tokenize_command(input);
+  t_list *cleaned_tokens = clean_tokens(tokens);
+
+  EXPECT_EQ(std::string((char *)cleaned_tokens->content), std::string("echo"));
+  EXPECT_EQ(std::string((char *)cleaned_tokens->next->content),
+            std::string("\\:\\ :\":\\a"));
+  EXPECT_EQ(cleaned_tokens->next->next, nullptr);
+}
+
+TEST(clean_tokens, commandWithEmptyString) {
+  // echo ""''""''
+  const char *input = "echo \"\"''\"\"''";
+  t_list *tokens = tokenize_command(input);
+  t_list *cleaned_tokens = clean_tokens(tokens);
+
+  EXPECT_EQ(std::string((char *)cleaned_tokens->content), std::string("echo"));
+  EXPECT_EQ(std::string((char *)cleaned_tokens->next->content),
+            std::string(""));
+  EXPECT_EQ(cleaned_tokens->next->next, nullptr);
+}
+
 TEST(clean_tokens, commandWithConsectiveBackslashes) {
   // grep a\ \b
   const char *input = "grep a\\ \\b";
@@ -165,7 +190,7 @@ TEST(clean_tokens, commandWithConsectiveBackslashes) {
 
   EXPECT_EQ(std::string((char *)cleaned_tokens->content), std::string("grep"));
   EXPECT_EQ(std::string((char *)cleaned_tokens->next->content),
-            std::string("a \\b"));
+            std::string("a b"));
   EXPECT_EQ(cleaned_tokens->next->next, nullptr);
 }
 
@@ -190,5 +215,17 @@ TEST(clean_tokens, commandWithConsecutiveEscapes) {
   EXPECT_EQ(std::string((char *)cleaned_tokens->content), std::string("grep"));
   EXPECT_EQ(std::string((char *)cleaned_tokens->next->content),
             std::string("message: hello"));
+  EXPECT_EQ(cleaned_tokens->next->next, nullptr);
+}
+
+TEST(clean_tokens, commandWithConsecutiveEscapesIncludingBashslash) {
+  // grep 'message'"\\"'hello'
+  const char *input = "grep 'message'\"\\\\\"'hello'";
+  t_list *tokens = tokenize_command(input);
+  t_list *cleaned_tokens = clean_tokens(tokens);
+
+  EXPECT_EQ(std::string((char *)cleaned_tokens->content), std::string("grep"));
+  EXPECT_EQ(std::string((char *)cleaned_tokens->next->content),
+            std::string("message\\hello"));
   EXPECT_EQ(cleaned_tokens->next->next, nullptr);
 }
