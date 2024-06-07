@@ -6,18 +6,13 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 20:31:59 by reasuke           #+#    #+#             */
-/*   Updated: 2024/06/07 17:22:59 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/06/07 17:31:54 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-typedef enum e_state
-{
-	ST_NORMAL,
-	ST_SINGLE_QUOTE,
-	ST_DOUBLE_QUOTE,
-}	t_state;
+#include "parse_command_internal.h"
 
 static void	_update_state(t_state *p_state, char ch)
 {
@@ -42,9 +37,12 @@ static bool	_is_quotation_to_skip(t_state state, char ch)
 
 static bool	_is_backslash_to_skip(t_state state, char ch, char next_ch)
 {
+	bool	should_escape_in_dq;
+
+	should_escape_in_dq = (next_ch == '\\' || next_ch == '\"');
 	return (ch == '\\'
-			&& (state == ST_NORMAL
-			|| (state == ST_DOUBLE_QUOTE && (next_ch == '"' || next_ch == '\\'))));
+		&& (state == ST_NORMAL
+			|| (state == ST_DOUBLE_QUOTE && should_escape_in_dq)));
 }
 
 static char	*_remove_escapes(const char *str)
