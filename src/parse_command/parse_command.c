@@ -6,13 +6,14 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 17:13:41 by reasuke           #+#    #+#             */
-/*   Updated: 2024/06/07 17:46:57 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/06/07 20:01:26 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
 #include "libft.h"
+#include "wrapper.h"
 
 #include "parse_command_internal.h"
 
@@ -27,7 +28,7 @@ static char	**_list_to_array(t_list *list)
 	i = 0;
 	while (list)
 	{
-		array[i] = ft_strdup((const char *)list->content);
+		array[i] = ft_xstrdup((const char *)list->content);
 		list = list->next;
 		i++;
 	}

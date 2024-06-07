@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:39:52 by reasuke           #+#    #+#             */
-/*   Updated: 2024/06/07 19:57:31 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/06/07 20:00:29 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,19 +57,16 @@ static bool	_skip_double_quote(char **cur)
 	return (true);
 }
 
-// TODO: handle ft_strdup error
-// TODO: handle ft_lstnew error
 static void	_add_token(t_list **tokens, char **start, char **cur)
 {
 	**cur = '\0';
-	ft_lstadd_back(tokens, ft_lstnew(ft_strdup(*start)));
+	ft_lstadd_back(tokens, ft_xlstnew(ft_xstrdup(*start)));
 	(*cur)++;
 	while (**cur == ' ' || **cur == '\t')
 		(*cur)++;
 	*start = *cur;
 }
 
-// TODO: handle ft_strdup error
 t_list	*tokenize_command(const char *cmd)
 {
 	t_list	*tokens;

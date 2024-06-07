@@ -6,11 +6,12 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/02 20:31:59 by reasuke           #+#    #+#             */
-/*   Updated: 2024/06/07 17:31:54 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/06/07 20:01:37 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "wrapper.h"
 
 #include "parse_command_internal.h"
 
@@ -81,7 +82,7 @@ t_list	*clean_tokens(t_list *tokens)
 	{
 		if (cur->content)
 			ft_lstadd_back(&cleaned_tokens,
-				ft_lstnew(_remove_escapes(cur->content)));
+				ft_xlstnew(_remove_escapes(cur->content)));
 		cur = cur->next;
 	}
 	return (cleaned_tokens);
