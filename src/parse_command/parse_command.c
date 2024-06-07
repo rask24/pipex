@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 17:13:41 by reasuke           #+#    #+#             */
-/*   Updated: 2024/06/02 20:47:03 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/06/07 17:46:57 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	**_list_to_array(t_list *list)
 	i = 0;
 	while (list)
 	{
-		array[i] = list->content;
+		array[i] = ft_strdup((const char *)list->content);
 		list = list->next;
 		i++;
 	}
