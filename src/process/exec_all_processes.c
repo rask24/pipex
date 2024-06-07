@@ -6,9 +6,11 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:38:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/29 20:15:44 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/31 14:50:19 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stdlib.h>
 
 #include "exec.h"
 #include "libft.h"

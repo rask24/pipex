@@ -24,10 +24,12 @@ SRC			= $(SRC_DIR)/main.c \
 				$(SRC_DIR)/process/exec_all_processes.c \
 				$(SRC_DIR)/process/exec_single_process.c \
 				$(SRC_DIR)/process/init_processes.c \
-				$(SRC_DIR)/split_word/split_word.c \
-				$(SRC_DIR)/split_word/get_content.c \
-				$(SRC_DIR)/split_word/create_word_list.c \
+				$(SRC_DIR)/parse_command/clean_tokens.c \
+				$(SRC_DIR)/parse_command/parse_command.c \
+				$(SRC_DIR)/parse_command/tokenize_command.c \
+				$(SRC_DIR)/wrapper/ft_xlstnew.c \
 				$(SRC_DIR)/wrapper/ft_xsplit.c \
+				$(SRC_DIR)/wrapper/ft_xstrdup.c \
 				$(SRC_DIR)/wrapper/ft_xstrjoin.c \
 				$(SRC_DIR)/wrapper/xopen.c \
 				$(SRC_DIR)/wrapper/xopen_with_permission.c \

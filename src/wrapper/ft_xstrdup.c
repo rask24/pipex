@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_content.c                                      :+:      :+:    :+:   */
+/*   ft_xstrdup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/14 22:49:17 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/29 02:33:14 by reasuke          ###   ########.fr       */
+/*   Created: 2024/06/07 19:55:55 by reasuke           #+#    #+#             */
+/*   Updated: 2024/06/07 19:59:24 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "split_word.h"
+#include <errno.h>
+#include <string.h>
 
-t_word	*get_content(t_list *word_list)
+#include "constants.h"
+#include "libft.h"
+#include "utils.h"
+
+char	*ft_xstrdup(const char *s)
 {
-	return ((t_word *)word_list->content);
+	char	*ret;
+
+	ret = ft_strdup(s);
+	if (!ret)
+		error_exit(__func__, strerror(errno), FUNCTION_FAIL);
+	return (ret);
 }

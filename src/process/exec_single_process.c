@@ -6,12 +6,13 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:44:57 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/29 02:48:35 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/31 14:50:30 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <stdbool.h>
+#include <stdlib.h>
 #include <unistd.h>
 
 #include "exec.h"

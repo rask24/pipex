@@ -6,16 +6,18 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:29:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/29 20:00:53 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/05/31 14:49:18 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <errno.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "constants.h"
 #include "exec.h"
 #include "libft.h"
-#include "split_word.h"
+#include "parse_command.h"
 #include "utils.h"
 
 #include "exec_internal.h"
@@ -41,7 +43,7 @@ void	execute_command(const char *cmd, char **envp)
 {
 	char		**cmd_list;
 
-	cmd_list = split_word(cmd);
+	cmd_list = parse_command(cmd);
 	if (ft_strchr(cmd_list[0], '/') && access(cmd_list[0], F_OK) == SUCCESS)
 		_execute_file_path(cmd_list, envp);
 	else
