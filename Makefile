@@ -27,7 +27,9 @@ SRC			= $(SRC_DIR)/main.c \
 				$(SRC_DIR)/parse_command/clean_tokens.c \
 				$(SRC_DIR)/parse_command/parse_command.c \
 				$(SRC_DIR)/parse_command/tokenize_command.c \
+				$(SRC_DIR)/wrapper/ft_xlstnew.c \
 				$(SRC_DIR)/wrapper/ft_xsplit.c \
+				$(SRC_DIR)/wrapper/ft_xstrdup.c \
 				$(SRC_DIR)/wrapper/ft_xstrjoin.c \
 				$(SRC_DIR)/wrapper/xopen.c \
 				$(SRC_DIR)/wrapper/xopen_with_permission.c \

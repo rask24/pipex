@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/31 16:39:52 by reasuke           #+#    #+#             */
-/*   Updated: 2024/06/02 20:16:09 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/06/07 19:57:31 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ t_list	*tokenize_command(const char *cmd)
 			cur++;
 	}
 	if (*start)
-		ft_lstadd_back(&tokens, ft_lstnew(ft_strdup(start)));
+		ft_lstadd_back(&tokens, ft_xlstnew(ft_xstrdup(start)));
 	free(cp_cmd);
 	return (tokens);
 }
