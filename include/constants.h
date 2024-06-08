@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 15:08:32 by reasuke           #+#    #+#             */
-/*   Updated: 2024/06/09 01:59:32 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/06/09 02:22:40 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@
 # define USG_H_5 "  Example:"
 # define USG_H_6 "    ./pipex here_doc EOF \"cat\" \"grep something\" outfile"
 
-# define UNMATCHED_SINGLE_QUOTE_MSG "unmatched quotation '\n"
-# define UNMATCHED_DOUBLE_QUOTE_MSG "unmatched quotation \"\n"
+# define UNMATCHED_SINGLE_QUOTE_MSG "unmatched quotation '"
+# define UNMATCHED_DOUBLE_QUOTE_MSG "unmatched quotation \""
 
 # define NOT_FOUND_MSG ": command not found\n"
 
