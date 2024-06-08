@@ -70,3 +70,6 @@ outfile
 
 # pdf files
 en.subject.pdf
+
+# tmpfiles
+.heredoc_tmpfile
