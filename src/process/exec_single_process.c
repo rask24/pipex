@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:44:57 by reasuke           #+#    #+#             */
-/*   Updated: 2024/06/08 14:54:59 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/06/08 15:52:18 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	_write_heredoc_to_tmpfile(const char *delimiter)
 
 	tmp_fd = xopen_with_permission(TMPFILE, O_WRONLY | O_CREAT | O_TRUNC,
 			S_IRUSR | S_IWUSR);
-	del_nl = ft_strjoin(delimiter, "\n");
+	del_nl = ft_xstrjoin(delimiter, "\n");
 	while (true)
 	{
 		write(STDOUT_FILENO, "> ", 2);
