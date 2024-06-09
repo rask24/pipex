@@ -229,3 +229,30 @@ TEST(clean_tokens, commandWithConsecutiveEscapesIncludingBashslash) {
             std::string("message\\hello"));
   EXPECT_EQ(cleaned_tokens->next->next, nullptr);
 }
+
+TEST(clean_tokens, commandWithUnmatchedSingleQuotation) {
+  // grep 'message: hello
+  const char *input = "grep 'message: hello";
+  t_list *tokens = tokenize_command(input);
+
+  EXPECT_EXIT(clean_tokens(tokens), ::testing::ExitedWithCode(1),
+              "pipex: clean_tokens: unmatched quotation '\n");
+}
+
+TEST(clean_tokens, commandWithUnmatchedDoubleQuotation) {
+  // grep "message: hello
+  const char *input = "grep \"message: hello";
+  t_list *tokens = tokenize_command(input);
+
+  EXPECT_EXIT(clean_tokens(tokens), ::testing::ExitedWithCode(1),
+              "pipex: clean_tokens: unmatched quotation \"\n");
+}
+
+TEST(clean_tokens, commandWithUnmatchedSingleQuotationInDoubleQuotation) {
+  // grep "message: 'hello
+  const char *input = "grep \"message: 'hello";
+  t_list *tokens = tokenize_command(input);
+
+  EXPECT_EXIT(clean_tokens(tokens), ::testing::ExitedWithCode(1),
+              "pipex: clean_tokens: unmatched quotation \"\n");
+}
