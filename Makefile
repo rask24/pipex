@@ -37,6 +37,7 @@ SRC			= $(SRC_DIR)/main.c \
 				$(SRC_DIR)/wrapper/xclose.c \
 				$(SRC_DIR)/wrapper/xpipe.c \
 				$(SRC_DIR)/wrapper/xdup2.c \
+				$(SRC_DIR)/wrapper/xexecve.c \
 				$(SRC_DIR)/wrapper/xfork.c \
 				$(SRC_DIR)/wrapper/xunlink.c \
 				$(SRC_DIR)/utils/append_str.c \
