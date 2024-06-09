@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 12:38:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/31 14:50:19 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/06/09 21:41:04 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ pid_t	*exec_all_processes(t_ctx *ctx, char **envp)
 		ch_pids[i] = exec_single_process(&prs[i], envp);
 		if (i > 0)
 			_close_pipe_end(ctx->pipe_fds[i - 1]);
+		if (ctx->is_here_doc && i == 0)
+			waitpid(ch_pids[i], NULL, 0);
 		i++;
 	}
 	free(prs);

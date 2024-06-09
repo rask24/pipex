@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:44:57 by reasuke           #+#    #+#             */
-/*   Updated: 2024/06/09 21:25:04 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/06/09 22:06:55 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ static void	_write_heredoc_to_tmpfile(const char *delimiter)
 	{
 		write(STDOUT_FILENO, "> ", 2);
 		tmp = get_next_line(STDIN_FILENO);
+		if (tmp == NULL)
+		{
+			ft_printf("\n%s: warning: %s (wanted `%s')\n",
+				PROG_NAME, HEREDOC_WARN, delimiter);
+			break ;
+		}
 		if (tmp == NULL || !ft_strcmp(tmp, del_nl))
 			break ;
 		write(tmp_fd, tmp, ft_strlen(tmp));
