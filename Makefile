@@ -20,6 +20,7 @@ LIBFT_DIR	= libft
 # files
 SRC			= $(SRC_DIR)/main.c \
 				$(SRC_DIR)/exec/exec_command.c \
+				$(SRC_DIR)/exec/extract_path_from_env.c \
 				$(SRC_DIR)/exec/resolve_command_path.c \
 				$(SRC_DIR)/process/exec_all_processes.c \
 				$(SRC_DIR)/process/exec_single_process.c \
