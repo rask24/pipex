@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:44:57 by reasuke           #+#    #+#             */
-/*   Updated: 2024/06/10 00:37:04 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/06/10 00:42:01 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	_write_heredoc_to_tmpfile(const char *delimiter)
 	del_nl = ft_xstrjoin(delimiter, "\n");
 	while (true)
 	{
-		write(STDOUT_FILENO, "> ", 2);
+		ft_printf("> ");
 		tmp = get_next_line(STDIN_FILENO);
 		if (tmp == NULL)
 		{
@@ -41,9 +41,9 @@ static void	_write_heredoc_to_tmpfile(const char *delimiter)
 				PROG_NAME, HEREDOC_WARN, delimiter);
 			break ;
 		}
-		if (tmp == NULL || !ft_strcmp(tmp, del_nl))
+		if (!ft_strcmp(tmp, del_nl))
 			break ;
-		write(tmp_fd, tmp, ft_strlen(tmp));
+		ft_dprintf(tmp_fd, tmp);
 		free(tmp);
 	}
 	free(tmp);
