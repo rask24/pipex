@@ -239,6 +239,23 @@ RSpec.describe("pipex") do
           clean_outfile
         end
 
+        it "reports no such file or directory for second command" do
+          # ./pipex infile cat /bin/ccc outfile
+          _, stderr, status = execute_command("./pipex #{infile_path} cat /bin/ccc #{outfile_path}")
+
+          expect(stderr).to(include("pipex: /bin/ccc: No such file or directory\n"))
+          expect(status.exitstatus).to(eq(127))
+        end
+
+        it "reports error for command not found when PATH is unset" do
+          # env -i ./pipex infile cat cat outfile
+          _, stderr, status = execute_command("env -i ./pipex #{infile_path} cat cat #{outfile_path}")
+
+          expect(stderr).to(include("pipex: cat: No such file or directory\n"))
+          expect(status.exitstatus).to(eq(127))
+          clean_outfile
+        end
+
         it "reports error for each command" do
           # ./pipex infile a b c d outfile
           _, stderr, status = execute_command("./pipex #{infile_path} a b c d e f g #{outfile_path}")

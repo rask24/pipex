@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:29:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/06/09 20:11:38 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/06/09 20:38:17 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,12 @@
 static void	_execute_file_path(char **cmd_list, char **envp)
 {
 	if (access(cmd_list[0], X_OK) == FAILURE)
-		error_exit(cmd_list[0], strerror(errno), NOT_EXECUTABLE);
+	{
+		if (errno == EACCES)
+			error_exit(cmd_list[0], strerror(errno), NOT_EXECUTABLE);
+		else if (errno == ENOENT)
+			error_exit(cmd_list[0], strerror(errno), NOT_FOUND);
+	}
 	execve(cmd_list[0], cmd_list, envp);
 }
 
