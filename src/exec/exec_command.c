@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:29:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/06/09 19:30:34 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/06/09 20:06:55 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,14 @@ static void	_execute_env_path(char **cmd_list, char **envp)
 {
 	const char	*exec_path;
 
+	if (!extract_path_from_env(envp))
+		error_exit(cmd_list[0], strerror(ENOENT), NOT_FOUND);
 	exec_path = resolve_command_path(cmd_list[0], envp);
 	if (!exec_path)
 		not_found_exit(cmd_list[0]);
-	execve(exec_path, cmd_list, envp);
+	if (access(exec_path, X_OK) == SUCCESS)
+		execve(exec_path, cmd_list, envp);
+	error_exit(cmd_list[0], strerror(errno), NOT_EXECUTABLE);
 }
 
 void	execute_command(const char *cmd, char **envp)
