@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 15:08:32 by reasuke           #+#    #+#             */
-/*   Updated: 2024/06/09 02:22:40 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/06/09 20:09:06 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define UNMATCHED_SINGLE_QUOTE_MSG "unmatched quotation '"
 # define UNMATCHED_DOUBLE_QUOTE_MSG "unmatched quotation \""
 
-# define NOT_FOUND_MSG ": command not found\n"
+# define NOT_FOUND_MSG "command not found"
 
 # define INVALID_ARGUMENTS 1
 # define FUNCTION_FAIL     2

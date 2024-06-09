@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 15:33:16 by reasuke           #+#    #+#             */
-/*   Updated: 2024/06/07 20:02:16 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/06/09 19:57:41 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,7 @@
 #include "libft.h"
 #include "wrapper.h"
 
-static const char	*_extract_path_env(char **envp)
-{
-	int	i;
-
-	i = 0;
-	while (envp[i])
-	{
-		if (!ft_strncmp(envp[i], "PATH", 4))
-			return (ft_strchr(envp[i], '=') + 1);
-		i++;
-	}
-	return (NULL);
-}
+#include "exec_internal.h"
 
 static const char	*_join_path_with_cmd_name(const char *path,
 						const char *cmd_name)
@@ -51,7 +39,7 @@ const char	*resolve_command_path(const char *cmd_name, char **envp)
 	const char	*exec_path;
 	int			i;
 
-	path_env = _extract_path_env(envp);
+	path_env = extract_path_from_env(envp);
 	if (!path_env)
 		return (NULL);
 	paths = ft_xsplit(path_env, ':');
