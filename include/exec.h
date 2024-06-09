@@ -6,13 +6,13 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 20:03:54 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/29 02:26:27 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/06/09 21:25:04 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
 
-void	execute_command(const char *cmd, char **envp);
+void	exec_command(const char *cmd, char **envp);
 
 #endif
