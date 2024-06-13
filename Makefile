@@ -40,6 +40,8 @@ SRC			= $(SRC_DIR)/main.c \
 				$(SRC_DIR)/wrapper/xexecve.c \
 				$(SRC_DIR)/wrapper/xfork.c \
 				$(SRC_DIR)/wrapper/xunlink.c \
+				$(SRC_DIR)/utils/create_pipe_fds.c \
+				$(SRC_DIR)/utils/free_pipe_fds.c \
 				$(SRC_DIR)/utils/append_str.c \
 				$(SRC_DIR)/utils/error_exit.c \
 				$(SRC_DIR)/utils/usage_error_exit.c

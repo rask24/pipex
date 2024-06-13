@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   create_pipe_fds.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/25 19:03:24 by reasuke           #+#    #+#             */
-/*   Updated: 2024/06/13 19:15:26 by reasuke          ###   ########.fr       */
+/*   Created: 2024/06/13 19:13:38 by reasuke           #+#    #+#             */
+/*   Updated: 2024/06/13 19:14:52 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include "wrapper.h"
 
-int		**create_pipe_fds(int num_pipes);
-void	free_pipe_fds(int **pipe_fds, int num_pipes);
+int	**create_pipe_fds(int num_pipes)
+{
+	int	**pipe_fds;
+	int	i;
 
-void	*append_str(char **dst, const char *src);
-void	error_exit(const char *func, const char *msg, int status);
-void	usage_error_exit(void);
-
-#endif
+	pipe_fds = ft_xmalloc(sizeof(int *) * num_pipes);
+	i = 0;
+	while (i < num_pipes)
+	{
+		pipe_fds[i] = ft_xmalloc(sizeof(int) * 2);
+		xpipe((pipe_fds)[i]);
+		i++;
+	}
+	return (pipe_fds);
+}
