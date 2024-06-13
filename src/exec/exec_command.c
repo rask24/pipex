@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 14:29:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/06/09 21:25:04 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/06/10 00:48:04 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include "libft.h"
 #include "parse_command.h"
 #include "utils.h"
+#include "wrapper.h"
 
 #include "exec_internal.h"
 
@@ -46,8 +47,7 @@ static void	_exec_command_internal(char **cmd_list, char **envp,
 		else if (errno == ENOENT)
 			error_exit(cmd_list[0], strerror(errno), NOT_FOUND);
 	}
-	if (execve(exec_path, cmd_list, envp) == FAILURE)
-		error_exit(cmd_list[0], strerror(errno), errno);
+	xexecve(exec_path, cmd_list, envp);
 }
 
 void	exec_command(const char *cmd, char **envp)

@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 19:41:27 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/29 02:38:19 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/06/10 00:49:39 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 #include "constants.h"
 #include "utils.h"
-#include "wrapper.h"
 
 int	xopen_with_permission(const char *path, int oflag, int permission)
 {

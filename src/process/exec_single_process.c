@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/28 19:44:57 by reasuke           #+#    #+#             */
-/*   Updated: 2024/06/09 22:06:55 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/06/10 00:42:01 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ static void	_write_heredoc_to_tmpfile(const char *delimiter)
 	char	*tmp;
 	char	*del_nl;
 
-	tmp_fd = xopen_with_permission(TMPFILE, O_WRONLY | O_CREAT | O_TRUNC,
-			S_IRUSR | S_IWUSR);
+	tmp_fd = xopen_with_permission(TMPFILE,
+			O_WRONLY | O_CREAT | O_TRUNC | O_CLOEXEC, S_IRUSR | S_IWUSR);
 	del_nl = ft_xstrjoin(delimiter, "\n");
 	while (true)
 	{
-		write(STDOUT_FILENO, "> ", 2);
+		ft_printf("> ");
 		tmp = get_next_line(STDIN_FILENO);
 		if (tmp == NULL)
 		{
@@ -41,9 +41,9 @@ static void	_write_heredoc_to_tmpfile(const char *delimiter)
 				PROG_NAME, HEREDOC_WARN, delimiter);
 			break ;
 		}
-		if (tmp == NULL || !ft_strcmp(tmp, del_nl))
+		if (!ft_strcmp(tmp, del_nl))
 			break ;
-		write(tmp_fd, tmp, ft_strlen(tmp));
+		ft_dprintf(tmp_fd, tmp);
 		free(tmp);
 	}
 	free(tmp);
@@ -66,11 +66,11 @@ static int	_fetch_file_fd(t_process *pr)
 		return (xopen(pr->file_path, O_RDONLY));
 	else if (pr->mode == MODE_OUTFILE_APPEND)
 		return (xopen_with_permission(pr->file_path,
-				O_WRONLY | O_CREAT | O_APPEND,
+				O_WRONLY | O_CREAT | O_APPEND | O_CLOEXEC,
 				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH));
 	else if (pr->mode == MODE_OUTFILE_OVERWRITE)
 		return (xopen_with_permission(pr->file_path,
-				O_WRONLY | O_CREAT | O_TRUNC,
+				O_WRONLY | O_CREAT | O_TRUNC | O_CLOEXEC,
 				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH));
 	else
 		return (-1);

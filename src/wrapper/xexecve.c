@@ -1,18 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   append_str.c                                       :+:      :+:    :+:   */
+/*   xexecve.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/29 20:02:39 by reasuke           #+#    #+#             */
-/*   Updated: 2024/05/29 20:06:19 by reasuke          ###   ########.fr       */
+/*   Created: 2024/06/10 00:43:39 by reasuke           #+#    #+#             */
+/*   Updated: 2024/06/10 18:34:34 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <errno.h>
+#include <unistd.h>
+#include <string.h>
 
-void	append_str(char **dst, const char *src)
+#include "constants.h"
+#include "utils.h"
+
+void	xexecve(const char *path, char *const *argv, char *const *envp)
 {
-	ft_strlcat(*dst, src, ft_strlen(*dst) + ft_strlen(src) + 1);
+	if (execve(path, argv, envp) == FAILURE)
+		error_exit(__func__, strerror(errno), FUNCTION_FAIL);
 }
