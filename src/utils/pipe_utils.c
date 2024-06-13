@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/13 19:24:21 by reasuke           #+#    #+#             */
-/*   Updated: 2024/06/13 19:24:36 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/06/13 19:48:41 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	**create_pipe_fds(int num_pipes)
 	}
 	return (pipe_fds);
 }
+
 void	free_pipe_fds(int **pipe_fds, int num_pipes)
 {
 	int	i;
