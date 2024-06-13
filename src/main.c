@@ -6,7 +6,7 @@
 /*   By: reasuke <reasuke@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 14:36:05 by reasuke           #+#    #+#             */
-/*   Updated: 2024/06/13 19:15:59 by reasuke          ###   ########.fr       */
+/*   Updated: 2024/06/13 19:46:05 by reasuke          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,14 @@ static void	_wait_for_children(pid_t *ch_pids, int num_cmds, int *stat)
 	}
 }
 
+static void	_handle_exit_status(int stat)
+{
+	if (WIFEXITED(stat))
+		exit(WEXITSTATUS(stat));
+	else
+		exit(EXIT_FAILURE);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_ctx	ctx;
@@ -76,8 +84,5 @@ int	main(int argc, char **argv, char **envp)
 	free_pipe_fds(ctx.pipe_fds, ctx.num_cmds - 1);
 	_wait_for_children(ch_pids, ctx.num_cmds, &stat);
 	free(ch_pids);
-	if (WIFEXITED(stat))
-		exit(WEXITSTATUS(stat));
-	else
-		exit(FAILURE);
+	_handle_exit_status(stat);
 }
