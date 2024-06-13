@@ -105,5 +105,3 @@ re: fclean all
 .PHONY: norm
 norm:
 	norminette $(SRC_DIR) $(INC_DIR)
-
-include unit_test.mk
